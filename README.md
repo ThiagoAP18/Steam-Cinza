@@ -20,6 +20,15 @@ Apresentação T1:
 - Tecnologias que serão usadas para Desenvolvimento do Site (Guilherme)
 - Roadmap de Desenvolvimento (Guilherme)
 
+Apresentação T2:
+- Apresentação do Modelo Lógico, junto da tipagem dos dados
+- Normalização
+- Criação do Novo Modelo Lógico normalizado
+
 - Links:
-  - Relatório: https://docs.google.com/document/d/1MmjhaRLSItDdcv1hU4LEprf3-Jca5cxyMAoECt2FFdk/edit?usp=sharing
-  - Slides: https://www.canva.com/design/DAG15KIPCKk/w4gbuJyb7iJtj2cf6S8vVg/edit?utm_content=DAG15KIPCKk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+  - T1:
+    - Relatório: https://docs.google.com/document/d/1MmjhaRLSItDdcv1hU4LEprf3-Jca5cxyMAoECt2FFdk/edit?usp=sharing
+    - Slides: https://www.canva.com/design/DAG15KIPCKk/w4gbuJyb7iJtj2cf6S8vVg/edit?utm_content=DAG15KIPCKk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+  - T2:
+    - Relatório: https://docs.google.com/document/d/1yY1jYJXlJMil2Nfe6xo9ygJst2SL4vpbfJ23zwRD4TE/edit?usp=sharing
+    - Slides: https://www.canva.com/design/DAG4TZueQGI/DAgS5rVuqBpnKXJeHqvgFg/edit?utm_content=DAG4TZueQGI&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
