@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", serif;
+}
+body{
+    background-color: #181555;
+    color: white;
+}
+header{
+    /*background-color: #96A3F4;
+    opacity: 30%;*/
+    background-color: #0F0D3C;
+    width: 100%;
+    height: 50px;
+}
+.login{
+    float: right; /*comentar do float*/
+    padding: 8px;
+    padding-right: 20px;
+}
+.home{
+    max-width: 60px;
+    max-height: 60px;
+    float: left; /*comentar do float*/
+    padding: 8px;
+    padding-left: 20px;
+}
+.carrosel-games {
+    padding: 100px;
+    padding-left: 60px;
+    background-color: #181555;
+    display: flex;
+    background-image: url(imagem-fundo/game-fundo-blackflag.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.blur{
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(105, 105, 105, 0.18);
+    box-shadow: 0 15px 32px 0 rgba(0, 0, 0, 0.37);
+}
+.roleta-games {
+    text-align: center;
+    padding-bottom: 25%;
+}
+.card {
+    display: inline-block;
+    margin: 50px;
+    text-align: center;
+    border-radius: 10%;
+    border: 2px solid #ffffff; 
+    background-color: #0F0D3C;
+}
+.game-info{
+    display: flex;
+}
+.redonda{
+    border-radius: 10%;
+}
+.setinha-meio{
+    display: inline-block;
+    vertical-align:100%;
+}
+.setinha-inicio{
+    padding-top: 6%;
+}
+.botao1{
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 8px 25px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.5s ease;
+}
+.botao1:hover{
+    background-color: rgb(226, 226, 226);
+}
+.botao2{
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 8px 25px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.5s ease;
+}
+.botao2:hover{
+    background-color: rgb(226, 226, 226);
+}
+
+/*carrossel*/
+
+.slider{
+    margin: 0 auto;
+    width: 1200px;
+    height: 400px;
+    overflow: hidden;
+    justify-content: center;
+}
+.slides{
+    width: 400%;
+    height: 400px;
+    display: flex;
+}
+.slides input{
+    display:none;
+}
+.imagem{
+    width: 25%;
+    position: relative;
+    transition: 1s;
+    background-size: contain;
+}
+.imagem img{
+    width: 1200px;
+}
+.manual-nav{
+    position: absolute;
+    width: 1200px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+.manual-btn{
+    border: 2px solid white;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+.manual-btn:not(:last-child){
+    margin-right: 20px;
+}
+.manual-btn:hover{
+    background-color: white;
+}
+
+/*valores dos botões*/
+#r1:checked ~ .prim{
+    margin-left: 0;
+}
+#r2:checked ~ .prim{
+    margin-left: -25%;
+}
+#r3:checked ~ .prim{
+    margin-left: -50%;
+}
+#r4:checked ~ .prim{
+    margin-left: -75%;
+}
+
+/*botões preenchidos*/
+#r1:checked ~ .nav-auto .auto-btn1{
+    background-color: white;
+}
+#r2:checked ~ .nav-auto .auto-btn2{
+    background-color: white;
+}
+#r3:checked ~ .nav-auto .auto-btn3{
+    background-color: white;
+}
+#r4:checked ~ .nav-auto .auto-btn4{
+    background-color: white;
+}
+
+.nav-auto div{
+    border: 2px solid blue;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+.nav-auto{
+    position: absolute;
+    width: 1200px;
+    margin-top: 415px;
+    display: flex;
+    justify-content: center;
+}
+.nav-auto div:not(:last-child){
+    margin-right: 20px;
+}

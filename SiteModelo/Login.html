@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="imagens/logo-site-2.png" type="image/x-icon">
+    <script defer src="validacao.js"></script>
+</head>
+
+<body>
+    <div class="bg-imagem">
+    <div class="caixa">
+        <form id="form" action="Home.html">
+            <h1>Login</h1>
+
+            <div class="inputbox">
+                <input type="text" id="usuario-input" placeholder="Usuário">
+            </div>
+
+            <div class="inputbox">
+                <input type="password" id="senha-input" placeholder="Senha">
+            </div>
+
+            <div class="remember-forgot">
+                <label> <input type="checkbox"> Gravar Login</label>
+                <a href="EsqueciSenha.html">Esqueceu da senha?</a>
+            </div>
+
+            <button type="submit" class="btn">Login</button>
+            <div id="erro-mensagem-login" style="color: red; text-align: center; margin-top: 10px;"></div>
+
+            <div class="cadastro">
+                <p>Primeira vez no site? <a href="Cadastro.html">Cadastre-se</a></p>
+            </div>
+        
+        </form>
+    </div>
+    </div>
+</html>

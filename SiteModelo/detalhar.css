@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", serif; 
+}
+body{
+    background-color: #181555;
+    color: white;
+}
+header{
+    /*background-color: #96A3F4;
+    opacity: 30%;*/
+    background-color: #0F0D3C;
+    width: 100%;
+    height: 50px;
+}
+p{
+    color: white;
+}
+.login{
+    float: right; /*comentar do float*/
+    padding: 8px;
+    padding-right: 20px;
+}
+.home{
+    max-width: 60px;
+    max-height: 60px;
+    float: left; /*comentar do float*/
+    padding: 8px;
+    padding-left: 20px;
+}
+.blackflag {
+    padding: 100px;
+    padding-left: 60px;
+    display: flex;
+    background-image: url(imagem-fundo/game-fundo-blackflag.jpg);
+    background-size: cover;
+    background-color: #181555;
+}
+.celeste {
+    padding: 100px;
+    padding-left: 60px;
+    display: flex;
+    background-image: url(imagem-fundo/game-fundo-celeste.jpg);
+    background-size: cover;
+    background-color: #181555;
+}
+.ds3 {
+    padding: 100px;
+    padding-left: 60px;
+    display: flex;
+    background-image: url(imagem-fundo/game-fundo-ds3.jpg);
+    background-size: cover;
+    background-color: #181555;
+}
+.dd2 {
+    padding: 100px;
+    padding-left: 60px;
+    display: flex;
+    background-image: url(imagem-fundo/game-fundo-dd2.jpg);
+    background-size: cover;
+    background-color: #181555;
+}
+.blur{
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(105, 105, 105, 0.18);
+    box-shadow: 0 15px 32px 0 rgba(0, 0, 0, 0.37);
+}
+.botao1{
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 8px 25px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.5s ease;
+}
+.botao1:hover{
+    background-color: rgb(226, 226, 226);
+}
+.botao2{
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 8px 25px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.5s ease;
+}
+.botao2:hover{
+    background-color: rgb(226, 226, 226);
+}
+.infos-games{
+    padding-top: 30px; 
+    text-align: center;
+}
+
+/*Especificações*/
+.espec-geral {
+    width: 80%;
+    margin: 50px auto;
+    background-color: white;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+.espec {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+.dados {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    width: 48%;
+}
+.dados h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: black;
+}
+.dados ul {
+    list-style-type: none;
+}
+.dados li {
+    font-size: 1rem;
+    margin: 5px 0;
+    color: #000000;
+}
+
+/*Comentários*/
+.coment{
+    width: 80%;
+    margin: 50px auto;
+    background-color: white;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    color: #000000;
+}
+.avatar1{
+    background: gray;
+    width: 100px;
+    height: 100px;
+    border-radius: 20%;
+    background-image: url(imagens/icone_avatar1.jpg);
+    background-size: cover;
+    border: white solid 2px;
+}
+.avatar2{
+    background: gray;
+    width: 100px;
+    height: 100px;
+    border-radius: 20%;
+    background-image: url(imagens/icone_avatar2.jpg);
+    background-size: cover;
+    border: white solid 2px;
+}
+.caixa-coment{
+    max-width: 80%;
+    padding-left: 20px;
+    align-items: center;
+    padding-top: 10px;
+}
+.avalia i {
+    color: gold;
+    font-size: 16px;
+    margin-right: 0px;
+}
+  

@@ -1,0 +1,167 @@
+@font-face {
+    font-family: 'ScreenFont';
+    src: url(scream/SCREAM__.TTF);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #181555;
+    background-image: url(imagens/borrado.jpg);
+}
+
+h1 {
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.caixa_esqueci {
+    width: 500px;
+    height: auto;
+    background-color: rgb(228, 225, 225);
+    color: #000000;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+}
+
+.caixa {
+    width: 500px;
+    height: auto;
+    background-color: rgb(228, 225, 225);
+    color: #000000;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+}
+
+.inputbox {
+    width: 100%;
+    height: 50px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.inputbox input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    outline: none;
+    border-radius: 40px;
+    font-size: 16px;
+    color: #000000;
+    padding: 15px;
+    text-align: center;
+}
+
+.inputbox input:focus {
+    border-color: #6A5CFF;
+}
+
+.caixa .btn {
+    width: 100%;
+    height: 45px;
+    background: #ffffff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.caixa .continue {
+    width: 100%;
+    height: 45px;
+    background: #ffffff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.caixa .remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: 10px 0;
+}
+
+.caixa .remember-forgot label input {
+    accent-color: #000000;
+    margin-right: 3px;
+}
+
+.caixa .remember-forgot a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.caixa .remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.cadastro {
+    font-size: 14.5px;
+    margin: 20px 0 10px;
+    color: #000000;
+}
+
+.cadastro a {
+    color: #6A5CFF;
+    text-decoration: none;
+}
+
+.cadastro a:hover {
+    text-decoration: underline;
+}
+
+.login {
+    font-size: 14.5px;
+    margin: 10px 0 15px;
+    color: #000000;
+}
+
+.login a {
+    color: #6A5CFF;
+    text-decoration: none;
+}
+
+.login a:hover {
+    text-decoration: underline;
+}
+
+
+#erro-mensagem-login {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+.incorreto input {
+    border: 2px solid red !important;
+}
