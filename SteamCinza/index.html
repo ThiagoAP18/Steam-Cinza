@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tela Principal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-left">
+      <div class="logo">LOGO</div>
+    </div>
+
+    <div class="header-center">
+      <label class="search-wrapper" for="search-input">
+        <input id="search-input" class="search-input" type="search" placeholder="Busque pelos jogos de interesse" />
+        <button class="search-btn" aria-label="Pesquisar">🔍</button>
+      </label>
+    </div>
+
+    <div class="header-right">
+      <button class="icon-btn" aria-label="Notificações">🔔</button>
+      <button class="icon-btn" aria-label="Perfil">👤</button>
+    </div>
+  </header>
+
+  <main class="main container">
+    <section class="boxes-section">
+      <h2 class="section-title small">Você tem caixas disponíveis</h2>
+      <div class="boxes-row">
+        <button class="box" data-box="1">
+          <span class="box-label">CAIXA 1</span>
+        </button>
+
+        <button class="box" data-box="2">
+          <span class="box-label">CAIXA 2</span>
+        </button>
+
+        <button class="box" data-box="3">
+          <span class="box-label">CAIXA 3</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="related-section">
+      <h2 class="section-title">Relacionados à produtos de interesse</h2>
+
+      <div class="cards-grid" id="home-cards">
+        <!-- cards will be rendered by JS; fallback static items below -->
+        <article class="card pill" data-id="101" tabindex="0">
+          <div class="card-image" aria-hidden="true"></div>
+          <h3 class="card-title">JOGO A</h3>
+        </article>
+
+        <article class="card pill" data-id="102" tabindex="0">
+          <div class="card-image" aria-hidden="true"></div>
+          <h3 class="card-title">JOGO B</h3>
+        </article>
+
+        <article class="card pill" data-id="103" tabindex="0">
+          <div class="card-image" aria-hidden="true"></div>
+          <h3 class="card-title">JOGO C</h3>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <small>Prototipo — substitua logos e imagens pelos seus ativos</small>
+  </footer>
+</body>
+</html>

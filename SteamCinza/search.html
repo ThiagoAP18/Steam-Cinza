@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Produto</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-left">
+      <a href="index.html" class="logo">LOGO</a>
+    </div>
+
+    <div class="header-center">
+      <label class="search-wrapper" for="search-input">
+        <input id="search-input" class="search-input" type="search" placeholder="Busque pelos jogos de interesse" />
+        <button class="search-btn" aria-label="Pesquisar">🔍</button>
+      </label>
+    </div>
+
+    <div class="header-right">
+      <button class="icon-btn" aria-label="Notificações">🔔</button>
+      <button class="icon-btn" aria-label="Perfil">👤</button>
+    </div>
+  </header>
+
+  <main class="main container product">
+    <div class="product-media">
+      <div class="thumbs">
+        <button class="thumb" data-src="" aria-label="Thumb 1"></button>
+        <button class="thumb" data-src="" aria-label="Thumb 2"></button>
+      </div>
+
+      <div class="video-wrap">
+        <video id="prod-video" controls poster="" src="">
+          Seu navegador não suporta vídeo.
+        </video>
+      </div>
+    </div>
+
+    <div class="product-details">
+      <h1 id="prod-name">Nome do Jogo</h1>
+      <p class="seller" id="prod-seller">Vendedor</p>
+      <p class="price" id="prod-price">R$ 0,00</p>
+
+      <div class="modes">
+        <button class="mode-btn">COMPRAR</button>
+        <button class="mode-btn">ALUGAR</button>
+        <button class="mode-btn">TROCAR</button>
+      </div>
+
+      <section class="description">
+        <h3>Descrição do Jogo</h3>
+        <p id="prod-desc">Descrição automática carregada pelo id do produto.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <small>Produto</small>
+  </footer>
+</body>
+</html>

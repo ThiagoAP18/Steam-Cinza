@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vendedor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-left">
+      <a href="index.html" class="logo">LOGO</a>
+    </div>
+
+    <div class="header-center">
+      <label class="search-wrapper" for="search-input">
+        <input id="search-input" class="search-input" type="search" placeholder="Busque pelos jogos de interesse" />
+        <button class="search-btn" aria-label="Pesquisar">🔍</button>
+      </label>
+    </div>
+
+    <div class="header-right">
+      <button class="icon-btn" aria-label="Notificações">🔔</button>
+      <button class="icon-btn" aria-label="Perfil">👤</button>
+    </div>
+  </header>
+
+  <main class="main container vendor">
+    <h1 id="vendor-game">NOME DO JOGO</h1>
+
+    <form id="vendor-form" class="vendor-form">
+      <label class="field">
+        <span>Preço</span>
+        <input type="number" name="price" step="0.01" min="0" placeholder="0.00">
+      </label>
+
+      <fieldset class="field">
+        <legend>Modalidades</legend>
+        <label><input type="checkbox" name="modal_buy"> Compra</label>
+        <label><input type="checkbox" name="modal_rent"> Aluguel</label>
+        <label><input type="checkbox" name="modal_trade"> Troca</label>
+      </fieldset>
+
+      <button type="button" id="approve-btn" class="primary-btn">APROVAR</button>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <small>Tela do vendedor</small>
+  </footer>
+</body>
+</html>
