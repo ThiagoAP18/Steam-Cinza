@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Produto</title>
+  <title>Busca</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script src="main.js" defer></script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -27,40 +27,14 @@
     </div>
   </header>
 
-  <main class="main container product">
-    <div class="product-media">
-      <div class="thumbs">
-        <button class="thumb" data-src="" aria-label="Thumb 1"></button>
-        <button class="thumb" data-src="" aria-label="Thumb 2"></button>
-      </div>
-
-      <div class="video-wrap">
-        <video id="prod-video" controls poster="" src="">
-          Seu navegador não suporta vídeo.
-        </video>
-      </div>
-    </div>
-
-    <div class="product-details">
-      <h1 id="prod-name">Nome do Jogo</h1>
-      <p class="seller" id="prod-seller">Vendedor</p>
-      <p class="price" id="prod-price">R$ 0,00</p>
-
-      <div class="modes">
-        <button class="mode-btn">COMPRAR</button>
-        <button class="mode-btn">ALUGAR</button>
-        <button class="mode-btn">TROCAR</button>
-      </div>
-
-      <section class="description">
-        <h3>Descrição do Jogo</h3>
-        <p id="prod-desc">Descrição automática carregada pelo id do produto.</p>
-      </section>
+  <main class="main container">
+    <h2 class="section-title" id="search-title">Resultados</h2>
+    <div class="cards-grid" id="result-grid">
     </div>
   </main>
 
   <footer class="site-footer">
-    <small>Produto</small>
+    <small>Resultados gerados localmente (exemplo)</small>
   </footer>
 </body>
 </html>
