@@ -10,22 +10,34 @@
 </head>
 <body>
   <header class="site-header">
-    <div class="header-left">
-      <div class="logo">LOGO</div>
-    </div>
 
-    <div class="header-center">
-      <label class="search-wrapper" for="search-input">
-        <input id="search-input" class="search-input" type="search" placeholder="Busque pelos jogos de interesse" />
-        <button class="search-btn" aria-label="Pesquisar">🔍</button>
-      </label>
-    </div>
+  <div class="header-left">
+    <div class="logo">LOGO</div>
+  </div>
 
-    <div class="header-right">
-      <button class="icon-btn" aria-label="Notificações">🔔</button>
-      <button class="icon-btn" aria-label="Perfil">👤</button>
-    </div>
-  </header>
+  <div class="header-center">
+    <label class="search-wrapper" for="search-input">
+      <input id="search-input" class="search-input" type="search" placeholder="Busque pelos jogos de interesse" />
+      <button class="search-btn" aria-label="Pesquisar">🔍</button>
+    </label>
+  </div>
+
+  <div class="header-right">
+
+    <button class="icon-btn notif-btn" aria-label="Notificações">🔔</button>
+
+    <span class="notif-badge">0</span>
+
+    <button class="icon-btn" aria-label="Perfil">👤</button>
+
+  </div>
+
+</header>
+
+<div class="notif-panel">
+  <h3>Notificações</h3>
+  <div class="notif-list"></div>
+</div>
 
   <main class="main container">
     <section class="boxes-section">
@@ -49,27 +61,13 @@
       <h2 class="section-title">Relacionados à produtos de interesse</h2>
 
       <div class="cards-grid" id="home-cards">
-        <!-- cards will be rendered by JS; fallback static items below -->
-        <article class="card pill" data-id="101" tabindex="0">
-          <div class="card-image" aria-hidden="true"></div>
-          <h3 class="card-title">JOGO A</h3>
-        </article>
-
-        <article class="card pill" data-id="102" tabindex="0">
-          <div class="card-image" aria-hidden="true"></div>
-          <h3 class="card-title">JOGO B</h3>
-        </article>
-
-        <article class="card pill" data-id="103" tabindex="0">
-          <div class="card-image" aria-hidden="true"></div>
-          <h3 class="card-title">JOGO C</h3>
-        </article>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <small>Prototipo — substitua logos e imagens pelos seus ativos</small>
+    <small>Prototipo — substituir logos e imagens</small>
   </footer>
 </body>
 </html>
+
