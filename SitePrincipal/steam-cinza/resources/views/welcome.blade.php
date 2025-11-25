@@ -1,6 +1,6 @@
-@extends('layouts.main') {{-- Assumindo que você criou um layout --}}
+@extends('layouts.main')
 
-@section('title', 'Início - GameMarket')
+@section('title', 'Início')
 
 @section('content')
 <main class="main container">
@@ -17,25 +17,19 @@
         </div>
     </section>
 
-    {{-- Seção de Produtos --}}
     <section class="related-section">
-        <h2 class="section-title">Relacionados a produtos de interesse</h2>
+        <h2 class="section-title">Jogos em Destaque</h2>
 
         <div class="cards-grid">
-            {{-- @foreach($games as $game) --}}
-                <a href="{{-- route('product.show', $game->id) --}}" class="card pill">
+            @foreach($games as $game)
+                <a href="/games/{{$game->id}}" class="card pill">
                     <div class="card-image" aria-hidden="true">
-                        {{-- <img src="{{ $game->image_url }}" alt="{{ $game->name }}"> --}}
+                        <img src="/img/games/{{$game->image}}" alt="{{ $game->name_game }}">
                     </div>
-                    <h3 class="card-title">{{-- $game->name --}} Nome do Jogo (Exemplo)</h3>
-                    <p class="card-price">R$ 99,90</p>
-                </a> 
-                {{-- Card Estático de Exemplo (pode apagar quando colocar o PHP) --}}
-                <article class="card pill">
-                    <div class="card-image"></div>
-                    <h3 class="card-title">Exemplo Estático</h3>
-                </article>
-            {{-- @endforeach --}}
+                    <h3 class="card-title">{{$game->name_game}}</h3>
+                    <p class="card-price">A partir de R$XX,XX</p>
+                </a>
+            @endforeach 
         </div>
     </section>
 </main>

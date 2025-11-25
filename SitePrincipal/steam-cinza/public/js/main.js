@@ -1,22 +1,15 @@
-// Funções auxiliares
 function q(sel, root = document) { return root.querySelector(sel); }
 function qAll(sel, root = document) { return Array.from(root.querySelectorAll(sel)); }
 
-// Inicialização principal
 document.addEventListener('DOMContentLoaded', () => {
-    // Apenas inicializa componentes de UI globais
     initNotifications();
     initLogin();
-    
-    // Se houver lógica específica de validação de formulário de vendedor, pode ficar aqui
-    // mas a renderização de produtos e rotas agora é com o Laravel.
 });
 
 
-// ===== SISTEMA DE NOTIFICAÇÕES =====
+// Notifications System
 let notifications = [];
 
-// Carrega notificações com segurança (evita crash se o JSON for inválido)
 try {
     const data = localStorage.getItem("notifications");
     notifications = data ? JSON.parse(data) : [];
@@ -39,7 +32,6 @@ function initNotifications() {
             renderNotifications();
         });
 
-        // Opcional: Fechar ao clicar fora do painel
         document.addEventListener("click", (e) => {
             if (panel.classList.contains("open") && 
                 !panel.contains(e.target) && 
@@ -84,18 +76,30 @@ function renderNotifications() {
 }
 
 
-// ===== LOGIN (UI Apenas) =====
+// UI Login
 function initLogin() {
     const loginForm = document.getElementById("login-form");
 
     if (loginForm) {
         loginForm.addEventListener("submit", function (e) {
-            // Nota: Em produção, o Laravel lidará com o submit via POST real.
-            // Mantendo apenas se quiser interceptar algo visualmente antes do envio.
-            // Se for login 100% Laravel, você pode remover este bloco inteiro.
-            
-            // e.preventDefault(); 
-            // Lógica de feedback visual aqui...
         });
     }
 }
+
+// Toggle Main Menu
+function toggleUserMenu() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.user-menu-trigger') && !event.target.matches('.user-menu-trigger *')) {
+                var dropdowns = document.getElementsByClassName("user-dropdown");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('active')) {
+                        openDropdown.classList.remove('active');
+                    }
+                }
+            }
+        }

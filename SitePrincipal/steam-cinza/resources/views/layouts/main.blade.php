@@ -11,31 +11,59 @@
 <body>
     <header class="site-header">
         <div class="header-left">
-        <div class="logo">LOGO</div>
+            <a href="/" class="logo">Logo</a>
         </div>
 
         <div class="header-center">
-        <label class="search-wrapper" for="search-input">
-            <input id="search-input" class="search-input" type="search" placeholder="Busque pelos jogos de interesse" />
-            <button class="search-btn" aria-label="Pesquisar">🔍</button>
-        </label>
+            <label class="search-wrapper" for="search-input">
+                <input id="search-input" class="search-input" type="search" placeholder="Busque pelos jogos de interesse" />
+                <button class="search-btn" aria-label="Pesquisar">🔍</button>
+            </label>
         </div>
 
         <div class="header-right">
+            @auth
+                @if(Auth::user()->type == "common")
+                    <button class="icon-btn notif-btn" aria-label="Notificações">🔔</button>
+                    <span class="notif-badge">0</span>
+                @endif
 
-        <button class="icon-btn notif-btn" aria-label="Notificações">🔔</button>
+                <div class="user-menu-container">
+                    <button class="user-menu-trigger" onclick="toggleUserMenu()">
+                        <span>👤</span>
+                        <span class="arrow">▼</span>
+                    </button>
 
-        <span class="notif-badge">0</span>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="user-name">Olá, {{ Auth::user()->name }}</div>
+                        
+                        @if(Auth::user()->type == "publisher")
+                            <a href="{{ route('dashboard') }}" class="dropdown-item">Meus Jogos Lançados</a>
+                        @else
+                            <a href="{{ route('dashboard') }}" class="dropdown-item">Meus Jogos</a>
+                        @endif
+                        
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="dropdown-item" style="color: red;">Sair</button>
+                        </form>
+                    </div>
+                </div>
+            @endauth
 
-        <button class="icon-btn" aria-label="Perfil">👤</button>
-
+            @guest
+                <a href="{{ route('login') }}" class="btn-login">Entrar</a>
+                <a href="{{ route('register') }}" class="btn-register">Cadastrar</a>
+            @endguest
         </div>
     </header>
 
+    @auth
     <div class="notif-panel">
         <h3>Notificações</h3>
         <div class="notif-list"></div>
     </div>
+    @endauth
     @yield('content')
 
     <footer class="site-footer">
