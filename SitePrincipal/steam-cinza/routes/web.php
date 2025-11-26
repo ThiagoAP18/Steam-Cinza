@@ -5,6 +5,7 @@ use App\http\Controllers\ProductsController;
 
 Route::get('/', [ProductsController::class, 'index']);
 Route::get('/games/{id}', [ProductsController::class, 'show']);
+Route::get('/search', [ProductsController::class, 'search']);
 
 Route::middleware([
     'auth:sanctum',

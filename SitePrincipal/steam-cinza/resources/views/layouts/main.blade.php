@@ -15,10 +15,12 @@
         </div>
 
         <div class="header-center">
-            <label class="search-wrapper" for="search-input">
-                <input id="search-input" class="search-input" type="search" placeholder="Busque pelos jogos de interesse" />
-                <button class="search-btn" aria-label="Pesquisar">🔍</button>
-            </label>
+            <form action="/search" method="GET">
+                <label class="search-wrapper" for="search-input">
+                    <input name ="search" id="search-input" class="search-input" type="search" placeholder="Busque pelos jogos de interesse" />
+                    <button class="search-btn" aria-label="Pesquisar">🔍</button>
+                </label>
+            </form>
         </div>
 
         <div class="header-right">

@@ -27,7 +27,20 @@
                         <img src="/img/games/{{$game->image}}" alt="{{ $game->name_game }}">
                     </div>
                     <h3 class="card-title">{{$game->name_game}}</h3>
-                    <p class="card-price">A partir de R$XX,XX</p>
+                    <p class="card-price">
+                        <p class="card-price">
+                            @if($minBuyPrice)
+                                Compra: a partir de <strong>R$ {{ number_format($minBuyPrice, 2, ',', '.') }}</strong>
+                            @else
+                                <span class="unavailable">Indisponível para compra</span>
+                            @endif
+                            @if($minRentPrice)
+                                Aluguel: a partir de <strong>R$ {{ number_format($minRentPrice, 2, ',', '.') }}</strong>
+                            @else
+                                <span class="unavailable">Indisponível para aluguel</span>
+                            @endif
+                        </p>
+                    </p>
                 </a>
             @endforeach 
         </div>
