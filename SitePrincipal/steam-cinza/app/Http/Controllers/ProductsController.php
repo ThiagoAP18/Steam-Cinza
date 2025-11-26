@@ -16,7 +16,20 @@ class ProductsController extends Controller
     {
         $games = Game::all();
 
-        return view('welcome', ['games' => $games]);
+        $minBuyPrice = License::where('status', 'available')->whereNotNull('price')->min('price');
+        $minRentPrice = License::where('status', 'available')->whereNotNull('rent_price')->min('rent_price');
+
+        return view('welcome', ['games' => $games, 'minBuyPrice' => $minBuyPrice, 'minRentPrice' => $minRentPrice]);
+    }
+
+    public function search(){
+        $search = request('search');
+        $games = Game::where('name_game', 'like', '%'. $search. "%")->get();
+
+        $minBuyPrice = License::where('status', 'available')->whereNotNull('price')->min('price');
+        $minRentPrice = License::where('status', 'available')->whereNotNull('rent_price')->min('rent_price');
+        
+        return view('search', ['games' => $games, 'search' => $search, 'minRentPrice' => $minRentPrice, 'minBuyPrice' => $minBuyPrice]);
     }
 
     public function show($id){
