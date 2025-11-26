@@ -117,4 +117,28 @@ class ProductsController extends Controller
 
         return redirect('/')->with('msg', 'Saldo atualizado com sucesso!');
     }
+
+    public function dashboard(){
+        $user = auth()->user();
+
+        $games = [];
+        $userLicenses = [];
+        $buyedExists = false;
+        $rentExists = false;
+
+        if($user->type == 'common'){
+            $userLicenses = License::where('user_id', $user->id)->where('status', 'redeemed')->get();
+            $buyedExists = $userLicenses->contains(function ($license){
+                return !is_null($license['price']);
+            });
+            $rentExists = $userLicenses->contains(function ($license){
+                return !is_null($license['rent_price']);
+            });
+        }
+        else if($user->type == 'publisher'){
+            $games = Game::where('publisher_id', $user->id)->with('game')->get();
+        }
+
+        return view('/dashboard', ['licenses' => $userLicenses, 'games' => $games, 'buyedExists' => $buyedExists, 'rentExists' => $rentExists]);
+    }
 }

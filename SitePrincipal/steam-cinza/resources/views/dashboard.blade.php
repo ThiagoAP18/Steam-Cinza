@@ -53,7 +53,67 @@
         @endif
     @else
         @if(count($licenses) > 0)
-
+            @if($buyedExists)
+                <h2>Compradas</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Chave</th>
+                            <th scope="col">Comprado em</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($licenses as $license)
+                            <tr>
+                                <td>
+                                    <a href="/games/{{$game->id}}">{{$game->name_game}}</a>
+                                </td>
+                                <td>
+                                    <a href="/games/edit/{{$game->id}}" class="btn btn-info edit-btn">Anunciar</a>
+                                    {{--<form action="/games/{{$game->id}}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type = "submit" class = "btn btn-danger delete-btn">Deletar</button>
+                                    </form>--}}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
+            @if($rentExists)
+                <h1>Alugadas</h1>
+                <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Chave</th>
+                        <th scope="col">Proprietário</th>
+                        <th scope="col">Data de Vencimento</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($games as $game)
+                        <tr>
+                            <td>
+                                <a href="/games/{{$game->id}}">{{$game->name_game}}</a>
+                            </td>
+                            <td>
+                                <a href="/games/edit/{{$game->id}}" class="btn btn-info edit-btn">Devolver</a>
+                                {{--<form action="/games/{{$game->id}}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type = "submit" class = "btn btn-danger delete-btn">Deletar</button>
+                                </form>--}}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @endif
         @endif
     @endif
 </div>

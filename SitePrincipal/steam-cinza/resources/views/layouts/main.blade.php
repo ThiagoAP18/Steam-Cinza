@@ -42,9 +42,9 @@
                         </div>
                         
                         @if(Auth::user()->type == "publisher")
-                            <a href="{{ route('dashboard') }}" class="dropdown-item">Meus Jogos Lançados</a>
+                            <a href="/dashboard" class="dropdown-item">Meus Jogos Lançados</a>
                         @else
-                            <a href="{{ route('dashboard') }}" class="dropdown-item">Meus Jogos</a>
+                            <a href="/dashboard" class="dropdown-item">Meus Jogos</a>
                             <a href="/addfunds" class="dropdown-item">Adicionar Fundos</a>
                         @endif
                         
