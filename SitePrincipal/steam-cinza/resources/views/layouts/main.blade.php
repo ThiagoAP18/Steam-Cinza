@@ -37,12 +37,15 @@
                     </button>
 
                     <div class="user-dropdown" id="userDropdown">
-                        <div class="user-name">Olá, {{ Auth::user()->name }}</div>
+                        <div class="user-name">Olá, {{ Auth::user()->name }}
+                            <div class="cash">Saldo: R${{ Auth::user()->cash }}</div>
+                        </div>
                         
                         @if(Auth::user()->type == "publisher")
                             <a href="{{ route('dashboard') }}" class="dropdown-item">Meus Jogos Lançados</a>
                         @else
                             <a href="{{ route('dashboard') }}" class="dropdown-item">Meus Jogos</a>
+                            <a href="/addfunds" class="dropdown-item">Adicionar Fundos</a>
                         @endif
                         
                         <form method="POST" action="{{ route('logout') }}">

@@ -103,3 +103,9 @@ function toggleUserMenu() {
                 }
             }
         }
+
+//Add Funds
+
+function setAmount(value) {
+        document.getElementById('amount').value = value.toFixed(2);
+}

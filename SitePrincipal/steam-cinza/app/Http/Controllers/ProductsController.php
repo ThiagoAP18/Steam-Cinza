@@ -103,4 +103,18 @@ class ProductsController extends Controller
 
         return redirect('dashboard')->with('msg', 'Jogo e '. $quantity .' licenças adicionadas com sucesso');
     }
+
+    public function addFunds(){
+        $user = auth()->user();
+
+        return view('profile.addfunds', ['user' => $user]);
+    }
+
+    public function updateFunds(Request $request){
+        $user = auth()->user();
+        $user->cash += $request->amount;
+        $user->save();
+
+        return redirect('/')->with('msg', 'Saldo atualizado com sucesso!');
+    }
 }
