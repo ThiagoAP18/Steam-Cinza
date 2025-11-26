@@ -1,0 +1,3 @@
+Fiz algumas alterações pequenas no banco, como colocar a chave para vendedor e compra em cada transacao.
+Para importar o banco só baixar a pasta que eu coloquei e escolher import data no seu IDE e escolher a pasta.
+Acho que não deve pedir senha ou algo do tipo, mas se pedir a senha é: Senha123 , usuário root padrão
