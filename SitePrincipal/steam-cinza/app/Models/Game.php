@@ -10,7 +10,10 @@ class Game extends Model
         'name_game',
         'description',
         'image',
-        'user_id'
+        'user_id',
+        'dt_launch',
+        'initial_quantity',
+        'price'
     ];
     
     protected $dates = ['date'];

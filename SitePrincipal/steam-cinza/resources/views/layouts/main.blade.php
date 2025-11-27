@@ -43,6 +43,7 @@
                         
                         @if(Auth::user()->type == "publisher")
                             <a href="/dashboard" class="dropdown-item">Meus Jogos Lançados</a>
+                            <a href="/games/create" class="dropdown-item">Criar Jogo</a>
                         @else
                             <a href="/dashboard" class="dropdown-item">Meus Jogos</a>
                             <a href="/addfunds" class="dropdown-item">Adicionar Fundos</a>

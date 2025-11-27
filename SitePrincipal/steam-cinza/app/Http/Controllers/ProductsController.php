@@ -61,6 +61,14 @@ class ProductsController extends Controller
             abort(403, 'Acesso não autorizado!');
         }
 
+        $request->validate([
+            'name_game' => 'required|string',
+            'dt_launch' => 'required|date',
+            'initial_quantity' => 'required|integer|min:1', // Garante que é número e pelo menos 1
+            'description' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Valida se é imagem mesmo
+        ]);
+
         $game = new Game;
 
         $game->name_game = $request->name_game;
@@ -68,6 +76,7 @@ class ProductsController extends Controller
         $game->initial_quantity = $request->initial_quantity;
         $game->description = $request->description;
         $game->publisher_id = $user->id;
+        $price = $request->price;
 
         if($request->hasFile('image') && $request->file('image')->isValid()){
             $requestImage = $request->image;
@@ -84,7 +93,6 @@ class ProductsController extends Controller
 
         $licensesData = [];
         $quantity = (int)$request->initial_quantity;
-        $price = $request->price;
 
         for($i = 0; $i < $quantity; $i++){
             $licensesData[] = [
@@ -94,6 +102,8 @@ class ProductsController extends Controller
                 'price' => $price,
                 'rent_price' => null,
                 'status' => 'available',
+                'buy' => true,
+                'rent' => false,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
@@ -130,7 +140,6 @@ class ProductsController extends Controller
         $boughtLicenses = [];
 
         $pageTitle = ($user->type == 'publisher') ? 'Painel da Publicadora' : 'Minha Biblioteca';
-
 
         if($user->type == 'common'){
             $userLicenses = License::where('user_id', $user->id)->where('status', 'sold')->with('game')->get();
