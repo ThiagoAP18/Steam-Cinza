@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\http\Controllers\ProductsController;
 
 Route::get('/', [ProductsController::class, 'index']);
+Route::get('/games/create', [ProductsController::class, 'createGame'])->middleware('auth');
+Route::post('/games', [ProductsController::class, 'store'])->middleware('auth');
 Route::get('/games/{id}', [ProductsController::class, 'show']);
 Route::get('/search', [ProductsController::class, 'search']);
 Route::get('/addfunds', [ProductsController::class, 'addFunds'])->middleware('auth');

@@ -125,20 +125,32 @@ class ProductsController extends Controller
         $userLicenses = [];
         $buyedExists = false;
         $rentExists = false;
+        $userProperty = "";
+        $rentedLicenses = [];
+        $boughtLicenses = [];
+
+        $pageTitle = ($user->type == 'publisher') ? 'Painel da Publicadora' : 'Minha Biblioteca';
+
 
         if($user->type == 'common'){
-            $userLicenses = License::where('user_id', $user->id)->where('status', 'redeemed')->get();
-            $buyedExists = $userLicenses->contains(function ($license){
-                return !is_null($license['price']);
-            });
-            $rentExists = $userLicenses->contains(function ($license){
-                return !is_null($license['rent_price']);
-            });
+            $userLicenses = License::where('user_id', $user->id)->where('status', 'sold')->with('game')->get();
+            $rentedLicenses = $userLicenses->where('rent', true);
+            $boughtLicenses = $userLicenses->where('buy', true);
         }
         else if($user->type == 'publisher'){
-            $games = Game::where('publisher_id', $user->id)->with('game')->get();
+            $games = Game::where('publisher_id', $user->id)->get();
         }
 
-        return view('/dashboard', ['licenses' => $userLicenses, 'games' => $games, 'buyedExists' => $buyedExists, 'rentExists' => $rentExists]);
+        return view('/dashboard', ['rentedLicenses' => $rentedLicenses, 'boughtLicenses' => $boughtLicenses, 'games' => $games, 'pageTitle' => $pageTitle, 'user' => $user]);
+    }
+
+    public function createGame(){
+        $user = auth()->user();
+
+        if($user->type != 'publisher'){
+            return redirect('/')->with('msg', "Apenas publicadoras podem acessar essa página");
+        }
+
+        return view('games.create', ['user' => $user]);
     }
 }

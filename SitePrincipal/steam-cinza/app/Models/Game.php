@@ -14,6 +14,10 @@ class Game extends Model
     ];
     
     protected $dates = ['date'];
+
+    protected $casts = [
+        'dt_launch' => 'datetime'
+    ];
     
     protected $guarded = [];
 
