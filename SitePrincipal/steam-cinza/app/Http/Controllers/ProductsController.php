@@ -50,8 +50,10 @@ class ProductsController extends Controller
         }
 
         $licenses = License::where('game_id', $game->id)->where('status', 'available')->with('user')->orderBy('price', 'asc')->get();
+        $commonLicenses = $licenses->where('user_id', !$game->publisher_id);
+        $publisherLicenses = $licenses->where('user_id', $game->publisher_id);
 
-        return view('games.show', ['game' => $game, 'licenses' => $licenses, 'publisher' => $publisherName, 'hasGame' => $hasGame]);
+        return view('games.show', ['game' => $game, 'commonLicenses' => $commonLicenses, 'publisherLicenses' => $publisherLicenses, 'publisher' => $publisherName, 'hasGame' => $hasGame]);
     }
 
     public function store(Request $request){

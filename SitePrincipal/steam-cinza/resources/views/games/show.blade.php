@@ -25,7 +25,7 @@
             @if(!$hasGame)
                 <h3 class="mt-4 mb-3">Ofertas Disponíveis:</h3>
 
-                @if(count($licenses) > 0)
+                @if(count($commonLicenses) > 0 || count($publisherLicenses) > 0)
                     <div class="table-responsive">
                         <table class="licenses-table">
                             <thead>
@@ -33,18 +33,62 @@
                                     <th scope="col">Tipo</th>
                                     <th scope="col">Modalidade</th>
                                     <th scope="col">Vendedor</th>
-                                    <th scope="col">Preços</th> 
+                                    <th scope="col">Preços</th>
+                                    @if(count($publisherLicenses) > 0)
+                                        <th scope="col">Quantidade em Estoque</th>
+                                    @endif
                                     <th scope="col">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($licenses as $license)
+                                <tr>
+                                    <td><span class="badge badge-official">Oficial</span></td>
+                                    <td>
+                                        <div class="d-flex flex-column"><span class="text-success fw-bold">Compra</span></div>
+                                    </td>
+                                    <td>
+                                        <div class="user_name">
+                                            {{ $publisher }}
+                                            @if(Auth::id() == $game->publisher_id) 
+                                                <br><small class="text-muted fst-italic">(Você)</small> 
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column gap-1">
+                                            <span class="price-value">
+                                                R$ {{ number_format($publisherLicenses[0]->price, 2, ',', '.') }}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column gap-1">
+                                            <span class="price-value">
+                                                {{count($publisherLicenses)}} Cópias
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @auth
+                                            @if(Auth::user()->type == 'publisher')
+                                                <span class="text-muted small" title="Publicadoras não compram jogos">Indisponível p/ CNPJ</span>
+                                            
+                                            @else
+                                                <div class="d-flex flex-column gap-2">
+                                                    <a href="#" class="btn btn-primary btn-sm">Comprar</a>
+                                                </div>
+                                            @endif
+                                        @else
+                                            <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm">Login para Adquirir</a>
+                                        @endauth
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                @foreach ($commonLicenses as $license)
                                     <tr>
                                         <td>
-                                            @if($license->user->type == 'publisher') <span class="badge badge-official">Oficial</span>
-                                            @else
-                                                <span class="badge badge-resale">Revenda</span>
-                                            @endif
+                                            <span class="badge badge-resale">Revenda</span>
                                         </td>
 
                                         <td>
