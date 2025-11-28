@@ -123,6 +123,7 @@
                                     <th>Proprietário Real</th>
                                     <th>Vencimento</th>
                                     <th>Status</th>
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -137,7 +138,6 @@
                                             </div>
                                         </td>
                                         <td><span class="key-code">{{ $license->license_key }}</span></td>
-                                        
                                         <td>
                                             @if($license->lastOwner)
                                                 {{ $license->lastOwner->name }}
@@ -145,11 +145,9 @@
                                                 <span class="badge badge-official">Loja Oficial</span>
                                             @endif
                                         </td>
-                                        
                                         <td>
                                             {{ optional($license->rent_expires_at)->format('d/m/Y H:i') ?? '--' }}
                                         </td>
-                                        
                                         <td>
                                             @if($license->rent_expires_at && $license->rent_expires_at->isPast())
                                                 <span class="badge-status expired">Vencido</span>
@@ -158,6 +156,15 @@
                                                     Restam {{ optional($license->rent_expires_at)->diffForHumans(null, true) }}
                                                 </span>
                                             @endif
+                                        </td>
+                                        <td>
+                                            <form action="/games/rent/return/{{$license->id}}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn-action btn-return" onclick="return confirm('Tem certeza que deseja devolver este jogo antes do prazo?')">
+                                                    Devolver
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

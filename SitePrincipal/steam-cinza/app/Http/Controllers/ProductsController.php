@@ -392,4 +392,26 @@ class ProductsController extends Controller
         return redirect('/dashboard')->with('msg', 'Jogo anunciado na loja com sucesso!')->with('type', 'success');
     }
 
+    public function rent_return($id){
+        $user = Auth::user();
+        $license = License::findOrFail($id);
+
+        if($license->user_id != $user->id){
+            return redirect('/');
+        }
+
+        if ($license->last_owner_id) {
+            $license->user_id = $license->last_owner_id; 
+        } 
+        
+        $license->last_owner_id = null; 
+        $license->rent_expires_at = null; 
+        $license->rent = false; 
+        $license->buy = true;
+        $license->status = 'sold'; 
+
+        $license->save();
+
+        return redirect('/')->with('msg', 'Jogo devolvido com sucesso!')->with('type', 'sucess');
+    }
 }

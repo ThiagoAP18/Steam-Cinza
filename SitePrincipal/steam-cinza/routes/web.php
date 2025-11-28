@@ -17,3 +17,4 @@ Route::put('/games/ad/{id}', [ProductsController::class, 'ad'])->middleware('aut
 Route::get('/games/edit/{id}', [ProductsController::class, 'edit'])->middleware('auth');
 Route::put('/games/update/{id}', [ProductsController::class, 'update'])->middleware('auth');
 Route::post('/games/announce', [ProductsController::class, 'announce'])->middleware('auth')->name('games.announce');
+Route::put('/games/rent/return/{id}', [ProductsController::class, 'rent_return'])->middleware('auth');
