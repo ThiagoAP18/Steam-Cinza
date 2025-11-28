@@ -261,4 +261,89 @@ class ProductsController extends Controller
             return redirect()->back()->with('msg', 'Erro ao processar o aluguel! Tente novamente.')->with('msg', 'danger');
         }
     }
+
+    public function ad(Request $request){
+
+    }
+
+    public function edit($id){
+        $user = auth()->user();
+        $game = Game::findOrFail($id);
+
+        if($user->id != $game->publisher_id){
+            return redirect('/')->with('msg', 'Você não é o dono desse jogo!')->with('type', 'danger');
+        }
+
+        return view('games.edit', ['game' => $game]);
+    }
+
+    public function update(Request $request){
+        $user = Auth::user();
+        
+        $game = Game::findOrFail($request->id);
+
+        if($user->id != $game->publisher_id){
+            abort(403, 'Você não tem permissão para editar este jogo.');
+        }
+
+        if($request->hasFile('image') && $request->file('image')->isValid()){
+            $requestImage = $request->image;
+            $extension = $requestImage->extension();
+            $imageName = md5($requestImage->getClientOriginalName() . "_" . strtotime("now")). "." . $extension;
+            
+            $requestImage->move(public_path("img/games"), $imageName);
+            $game->image = $imageName;
+        }
+
+        $game->name_game = $request->name_game;
+        $game->description = $request->description;
+        $game->dt_launch = $request->dt_launch;
+        
+        if($request->price != $game->initial_price) {
+            License::where('game_id', $game->id)->where('status', 'available')->update(['price' => $request->price]);
+            $game->initial_price = $request->price;
+        }
+
+        $currentAvailable = License::where('game_id', $game->id)
+                                   ->where('status', 'available')
+                                   ->count();
+        
+        $targetQuantity = (int)$request->new_quantity;
+
+        if($targetQuantity > $currentAvailable){
+            $toAdd = $targetQuantity - $currentAvailable;
+            $licensesData = [];
+            $priceToUse = $request->price ?? $game->licenses()->first()->price ?? 0;
+
+            for($i = 0; $i < $toAdd; $i++){
+                $licensesData[] = [
+                    'game_id' => $game->id,
+                    'user_id' => $user->id,
+                    'license_key' => strtoupper(Str::random(16)),
+                    'price' => $priceToUse, 
+                    'rent_price' => null,
+                    'status' => 'available',
+                    'buy' => true,
+                    'rent' => false,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }
+            License::insert($licensesData);
+        }
+        else if($targetQuantity < $currentAvailable){
+            $toRemove = $currentAvailable - $targetQuantity;
+            $licensesToDelete = License::where('game_id', $game->id)->where('user_id', $user->id)->where('status', 'available')->limit($toRemove)->pluck('id');
+            
+            if($licensesToDelete->isNotEmpty()){
+                License::destroy($licensesToDelete);
+            }
+        }
+        
+        $game->actual_quantity = $request->new_quantity;
+
+        $game->save();
+
+        return redirect('/dashboard')->with('msg', 'Jogo editado com sucesso!')->with('type', 'success');
+    }
 }

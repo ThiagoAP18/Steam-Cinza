@@ -56,7 +56,7 @@
                                             </a>
                                         </td>
                                         <td>{{ date('d/m/Y', strtotime($game->dt_launch)) }}</td>
-                                        <td>{{ $game->initial_quantity }} un.</td>
+                                        <td>{{ $game->actual_quantity }} un.</td>
                                         <td>
                                             <a href="/games/edit/{{$game->id}}" class="btn-action btn-edit">Editar</a>
                                             <form action="/games/{{$game->id}}" method="POST" style="display:inline;">
@@ -77,13 +77,7 @@
                     </div>
                 @endif
             </div>
-
-        <!-- ========================================== -->
-        <!-- VISÃO DO JOGADOR (COMPRADOR)               -->
-        <!-- ========================================== -->
-        @else
-            
-            <!-- 1. TABELA DE COMPRAS (DEFINITIVAS) -->
+        @else            
             @if(count($boughtLicenses) > 0)
                 <div class="custom-table-card">
                     <h3 class="card-header-title">🎮 Jogos Comprados (Meus)</h3>
@@ -112,8 +106,7 @@
                                         <td>{{ $license->updated_at->format('d/m/Y') }}</td>
                                         <td>
                                             <a href="#" class="btn-action btn-download">Baixar</a>
-                                            <!-- Futura feature de revenda -->
-                                            <!-- <a href="#" class="btn-action btn-sell">Revender</a> -->
+                                            <a href="#" class="btn-action btn-sell">Anunciar</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -123,7 +116,6 @@
                 </div>
             @endif
 
-            <!-- 2. TABELA DE ALUGUÉIS (TEMPORÁRIOS) -->
             @if(count($rentedLicenses) > 0)
                 <div class="custom-table-card">
                     <h3 class="card-header-title">⏳ Jogos Alugados</h3>

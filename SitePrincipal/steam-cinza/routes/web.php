@@ -13,6 +13,9 @@ Route::get('/search', [ProductsController::class, 'search']);
 Route::get('/addfunds', [ProductsController::class, 'addFunds'])->middleware('auth');
 Route::post('/updatefunds', [ProductsController::class, 'updateFunds'])->middleware('auth');
 Route::get('/dashboard', [ProductsController::class, 'dashboard'])->middleware('auth');
+Route::put('/games/ad/{id}', [ProductsController::class, 'ad'])->middleware('auth');
+Route::get('/games/edit/{id}', [ProductsController::class, 'edit'])->middleware('auth');
+Route::put('/games/update/{id}', [ProductsController::class, 'update'])->middleware('auth');
 
 /*Route::middleware([
     'auth:sanctum',

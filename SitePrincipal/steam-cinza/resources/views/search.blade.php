@@ -23,20 +23,19 @@
                         <div class="card-content">
                             <h3 class="card-title">{{$game->name_game}}</h3>
 
-                            <p class="card-price">
-                                <p class="card-price">
-                                    @if($minBuyPrice)
-                                        Compra: a partir de <strong>R$ {{ number_format($minBuyPrice, 2, ',', '.') }}</strong>
-                                    @else
-                                        <span class="unavailable">Indisponível para compra</span>
-                                    @endif
-                                    @if($minRentPrice)
-                                        Aluguel: a partir de <strong>R$ {{ number_format($minRentPrice, 2, ',', '.') }}</strong>
-                                    @else
-                                        <span class="unavailable">Indisponível para aluguel</span>
-                                    @endif
-                                </p>
-                            </p>
+                            <div class="card-price">
+                                @if($minBuyPrice) 
+                                    <span class="price-value">Compra: R$ {{ number_format($minBuyPrice, 2, ',', '.') }}</span>
+                                @else
+                                    <span class="unavailable">Indisponível para compra</span>
+                                @endif
+
+                                @if($minRentPrice)
+                                    <span class="rent-value">Aluguel: R$ {{ number_format($minRentPrice, 2, ',', '.') }}</span>
+                                @else
+                                    <span class="unavailable">Indisponível para aluguel</span>
+                                @endif
+                            </div>
                         </div>
                     </a>
                 @endforeach 
