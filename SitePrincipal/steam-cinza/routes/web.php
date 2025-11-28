@@ -16,14 +16,4 @@ Route::get('/dashboard', [ProductsController::class, 'dashboard'])->middleware('
 Route::put('/games/ad/{id}', [ProductsController::class, 'ad'])->middleware('auth');
 Route::get('/games/edit/{id}', [ProductsController::class, 'edit'])->middleware('auth');
 Route::put('/games/update/{id}', [ProductsController::class, 'update'])->middleware('auth');
-Route::post('/games/announce/{id}', [ProductsController::class, 'announce'])->middleware('auth');
-
-/*Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});*/
+Route::post('/games/announce', [ProductsController::class, 'announce'])->middleware('auth')->name('games.announce');
