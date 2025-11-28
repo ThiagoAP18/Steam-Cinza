@@ -25,11 +25,6 @@
 
         <div class="header-right">
             @auth
-                @if(Auth::user()->type == "common")
-                    <button class="icon-btn notif-btn" aria-label="Notificações">🔔</button>
-                    <span class="notif-badge">0</span>
-                @endif
-
                 <div class="user-menu-container">
                     <button class="user-menu-trigger" onclick="toggleUserMenu()">
                         <span>👤</span>
@@ -64,13 +59,27 @@
         </div>
     </header>
 
-    @auth
-    <div class="notif-panel">
-        <h3>Notificações</h3>
-        <div class="notif-list"></div>
+    @if(session('msg'))
+        @php
+            $msgType = session('type', 'success');
+            $alertClass = ($msgType === 'danger') ? 'flash-danger' : 'flash-success';
+        @endphp
+
+        <div id="flash-message" class="flash-message {{ $alertClass }}">
+            <div class="flash-content">
+                {!! session('msg') !!}
+            </div>
+            <button class="flash-close" onclick="closeFlash()">×</button>
+            
+            <div class="flash-progress"></div>
+        </div>
+    @endif
+
+    <div class="container-fluid">
+        <div class="row">
+            @yield('content')
+        </div>
     </div>
-    @endauth
-    @yield('content')
 
     <footer class="site-footer">
             <small>Prototipo — substituir logos e imagens</small>

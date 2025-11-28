@@ -38,7 +38,7 @@ class ProductsController extends Controller
         $hasGame = false;
 
         if(Auth::check()){
-            $hasGame = License::where('user_id', Auth::id())->where('game_id', $game->id)->exists();
+            $hasGame = License::where('user_id', Auth::id())->where('game_id', $game->id)->where('status', 'sold')->exists();
         }
 
         $publisher = User::where('id', $game->publisher_id)->first();
@@ -50,7 +50,7 @@ class ProductsController extends Controller
         }
 
         $licenses = License::where('game_id', $game->id)->where('status', 'available')->with('user')->orderBy('price', 'asc')->get();
-        $commonLicenses = $licenses->where('user_id', !$game->publisher_id);
+        $commonLicenses = $licenses->where('user_id', '!=', $game->publisher_id);
         $publisherLicenses = $licenses->where('user_id', $game->publisher_id);
 
         return view('games.show', ['game' => $game, 'commonLicenses' => $commonLicenses, 'publisherLicenses' => $publisherLicenses, 'publisher' => $publisherName, 'hasGame' => $hasGame]);
@@ -76,9 +76,11 @@ class ProductsController extends Controller
         $game->name_game = $request->name_game;
         $game->dt_launch = $request->dt_launch;
         $game->initial_quantity = $request->initial_quantity;
+        $game->actual_quantity = $game->initial_quantity;
         $game->description = $request->description;
         $game->publisher_id = $user->id;
         $price = $request->price;
+        $game->initial_price = $price;
 
         if($request->hasFile('image') && $request->file('image')->isValid()){
             $requestImage = $request->image;
@@ -113,7 +115,7 @@ class ProductsController extends Controller
 
         License::insert($licensesData);
 
-        return redirect('dashboard')->with('msg', 'Jogo e '. $quantity .' licenças adicionadas com sucesso');
+        return redirect('dashboard')->with('msg', 'Jogo e '. $quantity .' licenças adicionadas com sucesso')->with('type', 'success');
     }
 
     public function addFunds(){
@@ -127,7 +129,7 @@ class ProductsController extends Controller
         $user->cash += $request->amount;
         $user->save();
 
-        return redirect('/')->with('msg', 'Saldo atualizado com sucesso!');
+        return redirect('/')->with('msg', 'Saldo atualizado com sucesso!')->with('type', 'success');;
     }
 
     public function dashboard(){
@@ -159,9 +161,104 @@ class ProductsController extends Controller
         $user = auth()->user();
 
         if($user->type != 'publisher'){
-            return redirect('/')->with('msg', "Apenas publicadoras podem acessar essa página");
+            return redirect('/')->with('msg', "Apenas publicadoras podem acessar essa página")->with('type', 'danger');;
         }
 
         return view('games.create', ['user' => $user]);
+    }
+
+    public function buy($id){
+        $user = auth()->user();
+        $license = License::findOrFail($id);
+        
+        if($user->type == 'publisher'){
+            return redirect('/')->with('msg', 'Apenas jogadores podem comprar jogos!')->wih('msg', 'danger');
+        }
+        if( $license->status != 'available'){
+            return redirect('/')->with('msg', 'Licença indisponível para compra!')->with('msg', 'danger');
+        }
+        if($user->cash < $license->price){
+            $errorMessage = "Saldo insuficiente para concluir a compra! <a href='/addfunds' class='error_message_cash'>Clique aqui para adicionar fundos.</a>";
+            return redirect()->back()->with('msg', $errorMessage)->with('type', 'danger');
+        }
+
+        try{
+            DB::beginTransaction();
+
+            $user->cash -= $license->price;
+
+            $seller = User::findOrFail($license->user_id);
+            if($seller){
+                $seller->cash += $license->price;
+
+                if($seller->type == 'publisher'){
+                    $game = Game::findOrFail($license->game_id);
+                    $game->actual_quantity -= 1;
+                    $game->save();
+                }
+
+                $seller->save();
+            }
+
+            $license->last_owner_id = $license->user_id;
+            $license->user_id = $user->id;
+            $license->status = 'sold';
+            $license->rent = false;
+
+            $license->save();
+            $user->save();
+
+            DB::commit();
+            
+            return redirect('/dashboard')->with('msg', 'Jogo Comprado com sucesso!')->with('type', 'sucess');
+        }
+        catch(\Exception $e){
+            DB::rollback();
+            return redirect()->back()->with('msg', 'Erro ao processar a compra! Tente novamente.')->with('type', 'danger');
+        }
+    }
+
+    public function rent($id){
+        $user = auth()->user();
+        $license = License::findOrFail($id);
+
+        if($user->type == 'publisher'){
+            return redirect('/')->with('msg', 'Apenas jogadores podem alugar jogos!')->with('msg', 'danger');
+        }
+        if($license->status != 'available'){
+            return redirect('/')->with('msg', 'Licença indisponível para aluguel!')->with('msg', 'danger');
+        }
+        if($user->cash < $license->rent_price){
+            $errorMessage = "Saldo insuficiente para fazer aluguel! <a href='/addfunds' class='error_message_cash'>Clique aqui para adicionar fundos.</a>";
+            return redirect()->back()->with('msg', $errorMessage)->with('type','danger');
+        }
+
+        try{
+            DB::beginTransaction();
+
+            $user->cash -= $license->rent_price;
+            $user->save();
+
+            $seller = User::findOrFail($license->user_id);
+            if($seller){
+                $seller->cash += $license->rent_price;
+                $seller->save();
+            }
+
+            $license->last_owner_id = $seller->id;
+            $license->user_id = $user->id;
+            $license->status = 'sold';
+            $license->buy = false;
+            $license->rented_at = now();
+            $license->rent_expires_at = $license->rented_at->copy()->addDays($license->rent_time);
+            $license->save();
+
+            DB::commit();
+            return redirect("/dashboard")->with('msg', 'Aluguel feito com sucesso!')->with('type', 'sucess');
+        }
+        catch(\Exception $e){
+            DB::rollback();
+            return redirect()->back()->with('msg', 'Erro ao processar o aluguel! Tente novamente.')->with('msg', 'danger');
+        }
     }
 }

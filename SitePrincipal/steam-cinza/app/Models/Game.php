@@ -13,6 +13,7 @@ class Game extends Model
         'user_id',
         'dt_launch',
         'initial_quantity',
+        'actual_quantity',
         'price'
     ];
     

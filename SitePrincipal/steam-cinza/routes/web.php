@@ -7,6 +7,8 @@ Route::get('/', [ProductsController::class, 'index']);
 Route::get('/games/create', [ProductsController::class, 'createGame'])->middleware('auth');
 Route::post('/games', [ProductsController::class, 'store'])->middleware('auth');
 Route::get('/games/{id}', [ProductsController::class, 'show']);
+Route::post('/games/buy/{id}', [ProductsController::class, 'buy'])->middleware('auth');
+Route::post('/games/rent/{id}', [ProductsController::class, 'rent'])->middleware('auth');
 Route::get('/search', [ProductsController::class, 'search']);
 Route::get('/addfunds', [ProductsController::class, 'addFunds'])->middleware('auth');
 Route::post('/updatefunds', [ProductsController::class, 'updateFunds'])->middleware('auth');

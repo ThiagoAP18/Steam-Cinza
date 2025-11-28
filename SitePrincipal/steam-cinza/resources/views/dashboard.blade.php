@@ -7,6 +7,7 @@
 <div class="dashboard-container">
     <div class="container">
         
+        <!-- CABEÇALHO -->
         <div class="dashboard-header">
             <div>
                 <h1>{{ $pageTitle }}</h1>
@@ -25,7 +26,7 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- CONTEÚDO DA PUBLICADORA (VENDEDOR)         -->
+        <!-- VISÃO DA PUBLICADORA (VENDEDOR)            -->
         <!-- ========================================== -->
         @if($user->type == 'publisher')
             <div class="custom-table-card">
@@ -58,7 +59,6 @@
                                         <td>{{ $game->initial_quantity }} un.</td>
                                         <td>
                                             <a href="/games/edit/{{$game->id}}" class="btn-action btn-edit">Editar</a>
-                                            
                                             <form action="/games/{{$game->id}}" method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
@@ -71,14 +71,19 @@
                         </table>
                     </div>
                 @else
-                    <div class="p-4 text-center">
-                        <p class="text-muted">Você ainda não publicou nenhum jogo.</p>
-                        <a href="/games/create">Começar agora</a>
+                    <div class="empty-state">
+                        <p>Você ainda não publicou nenhum jogo.</p>
+                        <a href="/games/create" class="btn-link">Lançar Jogo</a>
                     </div>
                 @endif
             </div>
 
+        <!-- ========================================== -->
+        <!-- VISÃO DO JOGADOR (COMPRADOR)               -->
+        <!-- ========================================== -->
         @else
+            
+            <!-- 1. TABELA DE COMPRAS (DEFINITIVAS) -->
             @if(count($boughtLicenses) > 0)
                 <div class="custom-table-card">
                     <h3 class="card-header-title">🎮 Jogos Comprados (Meus)</h3>
@@ -97,8 +102,7 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <!-- Asset helper é melhor pra garantir caminho -->
-                                                <img src="{{ asset('img/games/' . $license->game->image) }}" alt="" class="table-thumb">
+                                                <img src="/img/games/{{ $license->game->image }}" alt="" class="table-thumb">
                                                 <a href="/games/{{$license->game->id}}" class="fw-bold text-dark text-decoration-none">
                                                     {{ $license->game->name_game }}
                                                 </a>
@@ -108,7 +112,8 @@
                                         <td>{{ $license->updated_at->format('d/m/Y') }}</td>
                                         <td>
                                             <a href="#" class="btn-action btn-download">Baixar</a>
-                                            <a href="#" class="btn-action btn-sell">Revender</a>
+                                            <!-- Futura feature de revenda -->
+                                            <!-- <a href="#" class="btn-action btn-sell">Revender</a> -->
                                         </td>
                                     </tr>
                                 @endforeach
@@ -138,7 +143,7 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <img src="{{ asset('img/games/' . $license->game->image) }}" alt="" class="table-thumb">
+                                                <img src="/img/games/{{ $license->game->image }}" alt="" class="table-thumb">
                                                 <a href="/games/{{$license->game->id}}" class="fw-bold text-dark text-decoration-none">
                                                     {{ $license->game->name_game }}
                                                 </a>
@@ -146,11 +151,15 @@
                                         </td>
                                         <td><span class="key-code">{{ $license->license_key }}</span></td>
                                         
-                                        <!-- Mostra o nome do dono anterior (quem alugou pra vc) ou Loja -->
-                                        <td>{{ optional($license->lastOwner)->name ?? 'Loja Oficial' }}</td>
+                                        <td>
+                                            @if($license->lastOwner)
+                                                {{ $license->lastOwner->name }}
+                                            @else
+                                                <span class="badge badge-official">Loja Oficial</span>
+                                            @endif
+                                        </td>
                                         
                                         <td>
-                                            <!-- Se rent_expires_at for nulo por erro, evita quebrar -->
                                             {{ optional($license->rent_expires_at)->format('d/m/Y H:i') ?? '--' }}
                                         </td>
                                         
@@ -170,13 +179,15 @@
                     </div>
                 </div>
             @endif
-            @if(count($rentedLicenses) == 0 && count($boughtLicenses) == 0)
+
+            @if(count($boughtLicenses) == 0 && count($rentedLicenses) == 0)
                 <div class="empty-state">
                     <h3>Sua biblioteca está vazia 😢</h3>
                     <p>Visite a loja para adquirir novos jogos.</p>
                     <a href="/" class="btn-create">Ir para a Loja</a>
                 </div>
             @endif
+
         @endif
     </div>
 </div>

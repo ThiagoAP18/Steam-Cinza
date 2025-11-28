@@ -323,6 +323,9 @@ body{font-family:var(--font-family);background:var(--bg);color:#222;line-height:
 .flex-column { flex-direction: column; }
 .w-100 { width: 100%; }
 .text-white { color: white !important; }
+.error_message_cash{
+    text-decoration: underline; font-weight: bold;
+}
 
 /* Search Page */
 
@@ -814,4 +817,74 @@ textarea.form-control {
 .btn-primary:hover {
     background-color: #219150;
     transform: translateY(-2px);
+}
+
+/* Flash Messages */
+.flash-message {
+    position: fixed;
+    top: 90px; 
+    right: 20px; 
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    z-index: 9999;
+    min-width: 300px;
+    max-width: 450px;
+    border-left: 5px solid #ccc;
+    animation: slideIn 0.5s ease-out;
+    overflow: hidden;
+}
+
+.flash-success { border-left-color: var(--accent); }
+.flash-success .flash-content { color: #155724; }
+
+.flash-danger { border-left-color: var(--danger); }
+.flash-danger .flash-content { color: #721c24; }
+
+.flash-content a {
+    color: inherit;
+    text-decoration: underline;
+    font-weight: bold;
+}
+.flash-content a:hover { opacity: 0.8; }
+
+.flash-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+    margin-left: auto;
+}
+.flash-close:hover { color: #333; }
+
+.flash-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: rgba(0,0,0,0.1);
+    width: 100%;
+    animation: progress 5s linear forwards;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(120%); opacity: 0; }
+}
+
+@keyframes progress {
+    from { width: 100%; }
+    to { width: 0%; }
 }

@@ -4,18 +4,18 @@
 
 @section('content')
 <main class="main container">
-    <section class="boxes-section">
+    {{-- <section class="boxes-section">
         <h2 class="section-title small">Você tem caixas disponíveis</h2>
         <div class="boxes-row">
-            {{-- 
+             
             
             <a href="{{ route('search', ['box' => 1]) }}" class="box">
                 <span class="box-label">CAIXA 1</span>
             </a>
             
-            --}}
+            
         </div>
-    </section>
+    </section>--}}
 
     <section class="related-section">
         <h2 class="section-title">Jogos em Destaque</h2>

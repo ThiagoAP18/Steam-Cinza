@@ -109,3 +109,23 @@ function toggleUserMenu() {
 function setAmount(value) {
         document.getElementById('amount').value = value.toFixed(2);
 }
+
+//Flash Messages
+document.addEventListener('DOMContentLoaded', function() {
+    const flash = document.getElementById('flash-message');
+    if (flash) {
+        setTimeout(() => {
+            closeFlash();
+        }, 5000);
+    }
+});
+
+function closeFlash() {
+    const flash = document.getElementById('flash-message');
+    if (flash) {
+        flash.style.animation = 'slideOut 0.5s forwards';
+        setTimeout(() => {
+            flash.remove();
+        }, 500);
+    }
+}

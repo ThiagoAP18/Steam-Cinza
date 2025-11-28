@@ -12,6 +12,8 @@ class License extends Model
         'license_key',
         'price',
         'rent_price',
+        'rent_expires_at',
+        'rent_time',
         'status'
     ];
 
