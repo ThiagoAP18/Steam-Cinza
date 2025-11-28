@@ -888,3 +888,118 @@ textarea.form-control {
     from { width: 100%; }
     to { width: 0%; }
 }
+
+/* Modal Button */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Fundo escuro transparente */
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px); /* Efeito de desfoque no fundo */
+}
+
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    overflow: hidden;
+    animation: slideUp 0.3s ease-out;
+    max-height: 90vh; /* Evita que a modal estoure a tela em celulares */
+    overflow-y: auto;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+}
+
+.modal-header h2 { margin: 0; font-size: 1.2rem; color: var(--primary); }
+.close-modal { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #999; }
+
+.modal-body { padding: 25px; }
+
+.modal-footer {
+    padding: 15px 25px;
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* --- Estilo das Opções (Checkboxes) --- */
+.option-container {
+    margin-bottom: 15px;
+}
+
+.type-option-checkbox {
+    display: block;
+    cursor: pointer;
+    margin: 0;
+}
+
+.type-option-checkbox input { display: none; } /* Esconde o checkbox padrão */
+
+.type-box-row {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    transition: all 0.2s;
+    background: #fff;
+    position: relative;
+    z-index: 2;
+}
+
+/* Estado Selecionado */
+.type-option-checkbox input:checked + .type-box-row {
+    border-color: var(--accent);
+    background-color: #f0fff4;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.type-box-row .icon { font-size: 1.5rem; margin-right: 15px; }
+.type-box-row .info { display: flex; flex-direction: column; }
+.type-box-row .label { font-weight: 700; color: var(--primary); font-size: 1rem; }
+.type-box-row .desc { font-size: 0.8rem; color: #888; }
+
+/* --- Inputs que Aparecem (Dropdown) --- */
+.inputs-wrapper {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-top: none;
+    margin-top: -5px; /* Cola no cartão de cima */
+    padding: 20px 15px 15px 15px;
+    border-radius: 0 0 8px 8px;
+    animation: slideDown 0.3s ease-out;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.earnings-feedback {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 5px;
+}

@@ -129,3 +129,65 @@ function closeFlash() {
         }, 500);
     }
 }
+
+//Modal Button
+const FEE_PERCENT_RENT = 0.55;
+const FEE_PERCENT_SALE = 0.50;
+
+function openAnnounceModal(licenseId, gameName) {
+    document.getElementById('modalLicenseId').value = licenseId;
+    document.getElementById('modalGameTitle').innerText = 'Anunciar: ' + gameName;
+    document.getElementById('announceModal').style.display = 'flex';
+    
+    // Resetar campos
+    document.getElementById('announceForm').reset();
+    toggleOptions(); // Reseta visualização
+}
+
+function closeAnnounceModal() {
+    document.getElementById('announceModal').style.display = 'none';
+}
+
+function toggleOptions() {
+    const isSale = document.getElementById('checkSale').checked;
+    const isRent = document.getElementById('checkRent').checked;
+
+    // Mostrar/Esconder Inputs
+    document.getElementById('saleInputs').style.display = isSale ? 'block' : 'none';
+    document.getElementById('rentInputs').style.display = isRent ? 'block' : 'none';
+
+    // Validar obrigatoriedade
+    document.getElementById('salePrice').required = isSale;
+    document.getElementById('rentPrice').required = isRent;
+    document.getElementById('rentDays').required = isRent;
+
+    // Botão de confirmar só ativa se pelo menos um estiver marcado
+    const btn = document.getElementById('btnConfirm');
+    const error = document.getElementById('errorMsg');
+
+    if (!isSale && !isRent) {
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
+        error.style.display = 'block';
+    } else {
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        error.style.display = 'none';
+    }
+}
+
+function formatMoney(value) {
+    return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+function calcSale() {
+    const price = parseFloat(document.getElementById('salePrice').value) || 0;
+    const net = price - (price * FEE_PERCENT_SALE);
+    document.getElementById('saleEarnings').innerText = `Você recebe: ${formatMoney(net)} (Taxa: 50%)`;
+}
+
+function calcRent() {
+    const price = parseFloat(document.getElementById('rentPrice').value) || 0;
+    const net = price - (price * FEE_PERCENT_RENT);
+    document.getElementById('rentEarnings').innerText = `Você recebe: ${formatMoney(net)} (Taxa: 55%)`;
+}

@@ -346,4 +346,50 @@ class ProductsController extends Controller
 
         return redirect('/dashboard')->with('msg', 'Jogo editado com sucesso!')->with('type', 'success');
     }
+
+    public function announce(Request $request){
+        $user = Auth::user();
+
+        if($user->type == 'publisher'){
+            return redirect('/')->with('msg', 'Você não tem acesso a essa função!')->with('type', 'danger');
+        }
+
+        $license = License::findOrFail($request->license_id);
+        
+        if($license->user_id != $user->id){
+            return redirect()->back()->with('msg', 'Você não tem acesso à essa licença!')->with('type', 'danger');
+        }
+        
+        if($license->status != 'sold'){
+            return redirect()->back()->with('msg', 'Esta licença já foi anunciada!')->with('type', 'danger');
+        }
+
+        if(!$request->has('enable_sale') && !$request->has('enable_rent')){
+            return redirect()->back()->with('msg', 'Selecione pelo menos uma modalidade (Venda ou Aluguel).')->with('type', 'danger');
+        }
+
+        if($request->has('enable_rent')){
+            $license->rent = true;
+            $license->rent_price = $request->rent_price;
+            $license->rent_time = $request->rental_days; 
+        } else {
+            $license->rent = false;
+            $license->rent_price = null;
+            $license->rent_time = null;
+        }
+
+        if($request->has('enable_sale')){
+            $license->buy = true;
+            $license->price = $request->sale_price;
+        } else {
+            $license->buy = false;
+            $license->price = null;
+        }
+
+        $license->status = 'available';
+        $license->save();
+
+        return redirect('/dashboard')->with('msg', 'Jogo anunciado na loja com sucesso!')->with('type', 'success');
+    }
+
 }

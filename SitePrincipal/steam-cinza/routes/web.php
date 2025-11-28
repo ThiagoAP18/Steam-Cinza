@@ -16,6 +16,7 @@ Route::get('/dashboard', [ProductsController::class, 'dashboard'])->middleware('
 Route::put('/games/ad/{id}', [ProductsController::class, 'ad'])->middleware('auth');
 Route::get('/games/edit/{id}', [ProductsController::class, 'edit'])->middleware('auth');
 Route::put('/games/update/{id}', [ProductsController::class, 'update'])->middleware('auth');
+Route::post('/games/announce/{id}', [ProductsController::class, 'announce'])->middleware('auth');
 
 /*Route::middleware([
     'auth:sanctum',
