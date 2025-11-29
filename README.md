@@ -32,3 +32,8 @@ Apresentação T2:
   - T2:
     - Relatório: https://docs.google.com/document/d/1yY1jYJXlJMil2Nfe6xo9ygJst2SL4vpbfJ23zwRD4TE/edit?usp=sharing
     - Slides: https://www.canva.com/design/DAG4TZueQGI/DAgS5rVuqBpnKXJeHqvgFg/edit?utm_content=DAG4TZueQGI&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
+Apresentação T3:
+- Criação, login, compra e aluguel de usuário (Guilherme)
+- Criação, login, criação de jogos e edição (Daniel)
+- Integração do Banco e Back-End (Thiago)
