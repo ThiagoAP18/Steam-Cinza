@@ -32,5 +32,7 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
             'type' => $input['type']
         ]);
+
+        return redirect('/dashboard');
     }
 }

@@ -232,7 +232,8 @@ class ProductsController extends Controller
             $errorMessage = "Saldo insuficiente para fazer aluguel! <a href='/addfunds' class='error_message_cash'>Clique aqui para adicionar fundos.</a>";
             return redirect()->back()->with('msg', $errorMessage)->with('type','danger');
         }
-
+        
+        //Verifica tentativa de transação do usuário
         try{
             DB::beginTransaction();
 
@@ -260,10 +261,6 @@ class ProductsController extends Controller
             DB::rollback();
             return redirect()->back()->with('msg', 'Erro ao processar o aluguel! Tente novamente.')->with('msg', 'danger');
         }
-    }
-
-    public function ad(Request $request){
-
     }
 
     public function edit($id){
