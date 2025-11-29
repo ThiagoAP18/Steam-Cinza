@@ -13,6 +13,41 @@ Features:
 - Caixa de licenças:
   - O usuário pode comprar um caixa misteriosa de licenças da loja que tem um valor x, porém os jogos dela tenham valores abaixo ou não estejam sendo procurados. Para essa modalidade, o usuário não tem um período mínimo de     aquisição da   licenças do jogos para vender, alugar ou trocar esta.
 
+Manual de Instalação e Uso da Plataforma:
+- Recursos/Componentes Necessários:
+  - VSCode
+  - XAMPP
+  - Git
+  - Composer
+  - Node.js (framework para front-end das Páginas de Login e Registro)
+
+- Guia de Instalação:
+  - Clone o banco: git clone "link-do-repositório"
+  - No diretório da plataforma no diretório da plataforma (./SitePrincipal/steam-cinza), diretamente do terminal, faça:
+    - Pegue as configurações do arquivo .env de .env.example: cp .env .env.example
+    - Instale o composer: composer install
+    - Instale o framework do front-end: npm install
+    - Gere a key única da aplicação: php artisan key:generate
+  - Ligue o Apache Web Server e o MySQL no XAMPP
+  - Crie o banco "steam_cinza" em localhost/phpmyadmin
+  - Novamente, no diretório da plataforma no diretório da plataforma (./SitePrincipal/steam-cinza), diretamente do terminal, faça:
+    - Ligue o sistema: php artisan serve
+    - Crie um novo terminal e ligue o framework de front-end: npm run dev
+    - Crie um novo terminal e faça as migrations (criação de tableas e adição de campos) para o banco: php artisan migrate
+  - Só precisa logar o link gerado pelo terminal de ligação do sistema ou 127.0.0.1:8000
+
+- Para ligar
+  - Sempre importe todas as atualizações do repositório: git pull
+  - No diretório da plataforma no diretório da plataforma (./SitePrincipal/steam-cinza), diretamente do terminal, faça:
+    - Ligue o sistema: php artisan migrate
+    - Crie um novo terminal e ligue o framework de front-end: npm run dev
+  - Ligue o Apache Web Server e o MySQL no XAMPP
+
+- Erro na instalação do framework do front-end de login e registro ou sua ligação
+  - Verifique se, nas Variáveis de Ambiente do Sistema, a variável PATH está configurada para o diretório do Node.Js
+  - Verifique as condições de permissão ou autorização do terminal PowerShell:
+    - Para atualizar as permissões, abra um novo PowerShell como administrador e digite: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
 Apresentação T1:
 - Visão Geral do Sistema (Daniel)
 - Problema a ser Resolvido e Público Alvo (Daniel)
@@ -37,3 +72,4 @@ Apresentação T3:
 - Criação, login, compra e aluguel de usuário (Guilherme)
 - Criação, login, criação de jogos e edição (Daniel)
 - Integração do Banco e Back-End (Thiago)
+
