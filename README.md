@@ -48,6 +48,14 @@ Manual de Instalação e Uso da Plataforma:
   - Verifique as condições de permissão ou autorização do terminal PowerShell:
     - Para atualizar as permissões, abra um novo PowerShell como administrador e digite: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
+Exportação de novos arquivos para o repositório:
+- Sempre importe todas as atualizações do repositório: git pull
+- Altere os arquivos.
+- Adicione todas as alterações: git add .
+- Commita as alterações: git commit -m "Mensagem"
+- Novamente, importe todas as atualizações do repositório: git pull
+- Envie as alterações para o repositório: git push
+
 Apresentação T1:
 - Visão Geral do Sistema (Daniel)
 - Problema a ser Resolvido e Público Alvo (Daniel)
