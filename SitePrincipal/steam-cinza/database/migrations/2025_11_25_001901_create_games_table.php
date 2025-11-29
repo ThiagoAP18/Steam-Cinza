@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->string('name_game');
-            $table->date('dt-launch');
+            $table->date('dt_launch');
             $table->text('description');
             $table->integer('initial_quantity');
             $table->foreignId('publisher_id')->constrained('users');

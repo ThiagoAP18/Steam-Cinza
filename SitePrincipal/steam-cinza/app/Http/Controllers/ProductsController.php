@@ -169,7 +169,8 @@ class ProductsController extends Controller
 
     public function buy($id){
         $user = auth()->user();
-        $license = License::findOrFail($id);
+        $license = License::with('game')->findOrFail($id);
+        $game = $license->game;
         
         if($user->type == 'publisher'){
             return redirect('/')->with('msg', 'Apenas jogadores podem comprar jogos!')->wih('msg', 'danger');
@@ -188,13 +189,21 @@ class ProductsController extends Controller
             $user->cash -= $license->price;
 
             $seller = User::findOrFail($license->user_id);
+            $publisher = User::findOrFail($game->publisher_id);
+
             if($seller){
-                $seller->cash += $license->price;
+                $seller->cash += (0.5 * $license->price);
 
                 if($seller->type == 'publisher'){
                     $game = Game::findOrFail($license->game_id);
                     $game->actual_quantity -= 1;
                     $game->save();
+                }
+                else{
+                    if($publisher){
+                        $publisher->cash += (0.45 * $license->price);
+                        $publisher->save();
+                    }
                 }
 
                 $seller->save();
@@ -220,7 +229,8 @@ class ProductsController extends Controller
 
     public function rent($id){
         $user = auth()->user();
-        $license = License::findOrFail($id);
+        $license = License::with('game')->findOrFail($id);
+        $game = $license->game;
 
         if($user->type == 'publisher'){
             return redirect('/')->with('msg', 'Apenas jogadores podem alugar jogos!')->with('msg', 'danger');
@@ -241,9 +251,15 @@ class ProductsController extends Controller
             $user->save();
 
             $seller = User::findOrFail($license->user_id);
+            $publisher = User::findOrFail($game->publisher_id);
+
             if($seller){
-                $seller->cash += $license->rent_price;
+                $seller->cash += (0.45 * $license->rent_price);
                 $seller->save();
+            }
+            if($publisher){
+                $publisher->cash += (0.45 * $license->rent_price);
+                $publisher->save();
             }
 
             $license->last_owner_id = $seller->id;
@@ -259,7 +275,7 @@ class ProductsController extends Controller
         }
         catch(\Exception $e){
             DB::rollback();
-            return redirect()->back()->with('msg', 'Erro ao processar o aluguel! Tente novamente.')->with('msg', 'danger');
+            return redirect()->back()->with('msg', 'Erro ao processar o aluguel! Tente novamente.')->with('type', 'danger');
         }
     }
 

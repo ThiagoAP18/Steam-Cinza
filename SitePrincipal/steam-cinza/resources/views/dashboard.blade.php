@@ -50,7 +50,7 @@
                                             </a>
                                         </td>
                                         <td>{{ date('d/m/Y', strtotime($game->dt_launch)) }}</td>
-                                        <td>{{ $game->initial_quantity }} un.</td>
+                                        <td>{{ $game->actual_quantity }} un.</td>
                                         <td>
                                             <a href="/games/edit/{{$game->id}}" class="btn-action btn-edit">Editar</a>
                                             <form action="/games/{{$game->id}}" method="POST" style="display:inline;">
