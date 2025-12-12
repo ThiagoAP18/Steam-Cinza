@@ -171,12 +171,27 @@ class ProductsController extends Controller
         $user = auth()->user();
         $license = License::with('game')->findOrFail($id);
         $game = $license->game;
+        $alreadyHasGame = License::where('game_id', $license->game_id)
+            ->where(function($query) use ($user) {
+                $query->where('user_id', $user->id)
+                      ->orWhere(function($q) use ($user) {
+                          $q->where('last_owner_id', $user->id)
+                            ->where('rent', true);
+                      });
+            })
+            ->exists();
+
+        if($alreadyHasGame){
+            return redirect()->back()
+                ->with('msg', 'Você já possui uma cópia deste jogo (ativa, anunciada ou alugada)!')
+                ->with('type', 'danger');
+        }
         
         if($user->type == 'publisher'){
-            return redirect('/')->with('msg', 'Apenas jogadores podem comprar jogos!')->wih('msg', 'danger');
+            return redirect('/')->with('msg', 'Apenas jogadores podem comprar jogos!')->wih('type', 'danger');
         }
         if( $license->status != 'available'){
-            return redirect('/')->with('msg', 'Licença indisponível para compra!')->with('msg', 'danger');
+            return redirect('/')->with('msg', 'Licença indisponível para compra!')->with('type', 'danger');
         }
         if($user->cash < $license->price){
             $errorMessage = "Saldo insuficiente para concluir a compra! <a href='/addfunds' class='error_message_cash'>Clique aqui para adicionar fundos.</a>";
@@ -230,19 +245,24 @@ class ProductsController extends Controller
     public function rent($id){
         $user = auth()->user();
         $license = License::with('game')->findOrFail($id);
+        $rentedLicense = License::where('last_owner_id', $user->id);
         $game = $license->game;
 
         if($user->type == 'publisher'){
-            return redirect('/')->with('msg', 'Apenas jogadores podem alugar jogos!')->with('msg', 'danger');
+            return redirect('/')->with('msg', 'Apenas jogadores podem alugar jogos!')->with('type', 'danger');
         }
         if($license->status != 'available'){
-            return redirect('/')->with('msg', 'Licença indisponível para aluguel!')->with('msg', 'danger');
+            return redirect('/')->with('msg', 'Licença indisponível para aluguel!')->with('type', 'danger');
         }
         if($user->cash < $license->rent_price){
             $errorMessage = "Saldo insuficiente para fazer aluguel! <a href='/addfunds' class='error_message_cash'>Clique aqui para adicionar fundos.</a>";
             return redirect()->back()->with('msg', $errorMessage)->with('type','danger');
         }
-        
+        if($rentedLicense->exists() && $rentedLicense->rent){
+            $errorMessage = "Você já possui esse jogo alugado!";
+            return redirect()->back()->with('msg', $errorMessage)->with('type', 'danger');
+        }
+
         //Verifica tentativa de transação do usuário
         try{
             DB::beginTransaction();

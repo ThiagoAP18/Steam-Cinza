@@ -131,7 +131,8 @@ function closeFlash() {
 }
 
 //Modal Button
-const FEE_PERCENT_RENT = 0.55;
+const FEE_PERCENT_RENT_BASE = 0.4; 
+const FEE_PERCENT_RENT_DAILY = 0.05; 
 const FEE_PERCENT_SALE = 0.50;
 
 function openAnnounceModal(licenseId, gameName) {
@@ -139,9 +140,11 @@ function openAnnounceModal(licenseId, gameName) {
     document.getElementById('modalGameTitle').innerText = 'Anunciar: ' + gameName;
     document.getElementById('announceModal').style.display = 'flex';
     
-    // Resetar campos
     document.getElementById('announceForm').reset();
-    toggleOptions(); // Reseta visualização
+    document.getElementById('saleEarnings').innerText = "Você recebe: R$ 0,00";
+    document.getElementById('rentEarnings').innerText = "Você recebe: R$ 0,00";
+    
+    toggleOptions(); 
 }
 
 function closeAnnounceModal() {
@@ -152,23 +155,61 @@ function toggleOptions() {
     const isSale = document.getElementById('checkSale').checked;
     const isRent = document.getElementById('checkRent').checked;
 
-    // Mostrar/Esconder Inputs
     document.getElementById('saleInputs').style.display = isSale ? 'block' : 'none';
     document.getElementById('rentInputs').style.display = isRent ? 'block' : 'none';
+    validateInputs();
+}
 
-    // Validar obrigatoriedade
-    document.getElementById('salePrice').required = isSale;
-    document.getElementById('rentPrice').required = isRent;
-    document.getElementById('rentDays').required = isRent;
+function validateInputs() {
+    const isSale = document.getElementById('checkSale').checked;
+    const isRent = document.getElementById('checkRent').checked;
+    
+    const salePrice = parseFloat(document.getElementById('salePrice').value) || 0;
+    const rentPrice = parseFloat(document.getElementById('rentPrice').value) || 0;
+    const rentDays = parseInt(document.getElementById('rentDays').value) || 0;
 
-    // Botão de confirmar só ativa se pelo menos um estiver marcado
+    let isValid = true;
+    let msg = "Selecione pelo menos uma opção.";
+
+    if (!isSale && !isRent) {
+        isValid = false;
+    } else {
+        if (isSale) {
+            document.getElementById('salePrice').setAttribute('required', 'required');
+            if (salePrice <= 0) {
+                isValid = false;
+                msg = "Valor da venda deve ser maior que R$ 0,00.";
+            }
+        } else {
+            document.getElementById('salePrice').removeAttribute('required');
+        }
+
+        if (isRent) {
+            document.getElementById('rentPrice').setAttribute('required', 'required');
+            document.getElementById('rentDays').setAttribute('required', 'required');
+            
+            if (rentPrice <= 0) {
+                isValid = false;
+                msg = "Valor do aluguel deve ser maior que R$ 0,00.";
+            }
+            if (rentDays < 1 || rentDays > 7) {
+                isValid = false;
+                msg = "Dias de aluguel devem ser entre 1 e 7.";
+            }
+        } else {
+            document.getElementById('rentPrice').removeAttribute('required');
+            document.getElementById('rentDays').removeAttribute('required');
+        }
+    }
+
     const btn = document.getElementById('btnConfirm');
     const error = document.getElementById('errorMsg');
 
-    if (!isSale && !isRent) {
+    if (!isValid) {
         btn.disabled = true;
         btn.style.opacity = '0.5';
         error.style.display = 'block';
+        error.innerText = msg;
     } else {
         btn.disabled = false;
         btn.style.opacity = '1';
@@ -183,11 +224,23 @@ function formatMoney(value) {
 function calcSale() {
     const price = parseFloat(document.getElementById('salePrice').value) || 0;
     const net = price - (price * FEE_PERCENT_SALE);
+    
     document.getElementById('saleEarnings').innerText = `Você recebe: ${formatMoney(net)} (Taxa: 50%)`;
+    validateInputs();
 }
 
 function calcRent() {
     const price = parseFloat(document.getElementById('rentPrice').value) || 0;
-    const net = price - (price * FEE_PERCENT_RENT);
-    document.getElementById('rentEarnings').innerText = `Você recebe: ${formatMoney(net)} (Taxa: 55%)`;
+    const days = parseFloat(document.getElementById('rentDays').value) || 0;
+
+    let sharePercentage = (FEE_PERCENT_RENT_DAILY * days) + FEE_PERCENT_RENT_BASE;
+    
+    if(sharePercentage > 1) 
+        sharePercentage = 1;
+
+    const net = price * sharePercentage;
+    const percentageDisplay = (sharePercentage * 100).toFixed(0);
+
+    document.getElementById('rentEarnings').innerText = `Você recebe: ${formatMoney(net)} (Sua Parte: ${percentageDisplay}%)`;
+    validateInputs();
 }

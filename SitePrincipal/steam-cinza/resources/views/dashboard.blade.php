@@ -6,6 +6,8 @@
 
 <div class="dashboard-container">
     <div class="container">
+        
+        <!-- CABEÇALHO -->
         <div class="dashboard-header">
             <div>
                 <h1>{{ $pageTitle }}</h1>
@@ -22,7 +24,9 @@
                 <a href="/games/create" class="btn-create">+ Criar Novo Jogo</a>
             @endif
         </div>
+
         @if($user->type == 'publisher')
+            <!-- VISÃO DA PUBLICADORA -->
             <div class="custom-table-card">
                 <h3 class="card-header-title">Jogos Publicados</h3>
                 
@@ -71,7 +75,10 @@
                     </div>
                 @endif
             </div>
+
         @else
+            <!-- VISÃO DO JOGADOR -->
+            
             @if(count($boughtLicenses) > 0)
                 <div class="custom-table-card">
                     <h3 class="card-header-title">🎮 Jogos Comprados (Meus)</h3>
@@ -111,6 +118,7 @@
                     </div>
                 </div>
             @endif
+
             @if(count($rentedLicenses) > 0)
                 <div class="custom-table-card">
                     <h3 class="card-header-title">⏳ Jogos Alugados</h3>
@@ -173,6 +181,7 @@
                     </div>
                 </div>
             @endif
+
             @if(count($boughtLicenses) == 0 && count($rentedLicenses) == 0)
                 <div class="empty-state">
                     <h3>Sua biblioteca está vazia 😢</h3>
@@ -180,18 +189,22 @@
                     <a href="/" class="btn-create">Ir para a Loja</a>
                 </div>
             @endif
+
         @endif
     </div>
 </div>
+
 <div id="announceModal" class="modal-overlay" style="display: none;">
     <div class="modal-content">
         <div class="modal-header">
             <h2 id="modalGameTitle">Anunciar Jogo</h2>
             <button class="close-modal" onclick="closeAnnounceModal()">×</button>
         </div>
+        
         <form action="{{ route('games.announce') }}" method="POST" id="announceForm">
             @csrf
             <input type="hidden" name="license_id" id="modalLicenseId">
+
             <div class="modal-body">
                 <p class="text-muted">Selecione as modalidades (você pode marcar ambas):</p>
                 <div class="option-container mb-3">
@@ -205,10 +218,12 @@
                             </span>
                         </span>
                     </label>
+
                     <div id="saleInputs" class="inputs-wrapper" style="display:none;">
                         <div class="form-group">
                             <label>Valor da Venda (R$):</label>
-                            <input type="number" name="sale_price" id="salePrice" class="form-control" step="0.01" min="1" placeholder="0.00" oninput="calcSale()">
+                            <input type="number" name="sale_price" id="salePrice" class="form-control" step="0.01" min="0.01" placeholder="0.00" oninput="calcSale()">
+                            <small class="text-muted" style="font-size: 0.75rem;">Mínimo: R$ 0,01</small>
                             <small class="earnings-feedback text-success" id="saleEarnings">Você recebe: R$ 0,00</small>
                         </div>
                     </div>
@@ -228,11 +243,13 @@
                         <div class="form-row">
                             <div class="form-group half">
                                 <label>Valor (R$):</label>
-                                <input type="number" name="rent_price" id="rentPrice" class="form-control" step="0.01" min="1" placeholder="0.00" oninput="calcRent()">
+                                <input type="number" name="rent_price" id="rentPrice" class="form-control" step="0.01" min="0.01" placeholder="0.00" oninput="calcRent()">
+                                <small class="text-muted" style="font-size: 0.75rem;">Mínimo: R$ 0,01</small>
                             </div>
                             <div class="form-group half">
                                 <label>Dias:</label>
-                                <input type="number" name="rental_days" id="rentDays" class="form-control" min="1" max="30" placeholder="Ex: 7">
+                                <input type="number" name="rental_days" id="rentDays" class="form-control" min="1" max="7" placeholder="Ex: 7" oninput="calcRent()">
+                                <small class="text-muted" style="font-size: 0.75rem;">Entre 1 e 7 dias.</small>
                             </div>
                         </div>
                         <small class="earnings-feedback text-info" id="rentEarnings">Você recebe: R$ 0,00</small>
@@ -240,7 +257,7 @@
                 </div>
 
                 <div class="alert alert-warning mt-3" id="errorMsg" style="display:none; font-size: 0.85rem;">
-                    Selecione pelo menos uma opção para anunciar.
+                    Preencha os campos corretamente para continuar.
                 </div>
             </div>
 
