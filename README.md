@@ -81,3 +81,7 @@ Apresentação T3:
 - Criação, login, criação de jogos e edição (Daniel)
 - Integração do Banco e Back-End (Thiago)
 
+Apresentação T4:
+- Adicionar Regra de Negócio que aumenta a participação de lucro de um aluguel de uma licença conforme o número de dias (Concluída)
+- Resolvendo Bug de usuário poder comprar ou alugar mais de um jogo se estiver anunciando um ou em aluguel para outro usuário (Concluída)
+- Montar tabela e sistema de tags
