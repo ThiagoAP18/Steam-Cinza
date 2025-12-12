@@ -253,12 +253,15 @@ class ProductsController extends Controller
             $seller = User::findOrFail($license->user_id);
             $publisher = User::findOrFail($game->publisher_id);
 
+            $playerPercentage = 0.40 + $license->rent_time * 0.05;
+            $publisherPercentage = 0.95 - $playerPercentage;
+
             if($seller){
-                $seller->cash += (0.45 * $license->rent_price);
+                $seller->cash += ($playerPercentage * $license->rent_price);
                 $seller->save();
             }
             if($publisher){
-                $publisher->cash += (0.45 * $license->rent_price);
+                $publisher->cash += ($publisherPercentage * $license->rent_price); //Regra de Negócios: 1 dia => publicadora recebe 50% do valor, 7 dias [limite] => publicadora recebe 20% do valor => Queda de 5% por dia de aluguel
                 $publisher->save();
             }
 
