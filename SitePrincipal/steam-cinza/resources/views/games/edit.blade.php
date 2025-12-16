@@ -26,6 +26,15 @@
                 <input type="date" class="form-control" id="dt_launch" name="dt_launch" value="{{$game->dt_launch->format('Y-m-d')}}">
             </div>
             <div class="form-group">
+                <label for="new_tags">Tags / Gêneros:</label>
+                <input type="text" 
+                    class="form-control" 
+                    id="new_tags" 
+                    name="new_tags" 
+                    placeholder="Ex: Ação, RPG"
+                    value="{{ $game->tags->pluck('name')->implode(', ') }}">
+            </div>
+            <div class="form-group">
                 <label for="description">Descrição:</label>
                 <textarea name="description" id="description" class="form-control" placeholder="Digite a descrição do jogo">{{$game->description}}</textarea>
             </div>
@@ -40,7 +49,6 @@
             
             <input type="submit" class="btn btn-primary" value="Editar Jogo">
         </form>
-
     </div>
 </div>
 

@@ -24,6 +24,15 @@
                 <input type="date" class="form-control" id="dt_launch" name="dt_launch">
             </div>
             <div class="form-group">
+                <label for="new_tags">Tags / Gêneros:</label>
+                <input type="text" 
+                    class="form-control" 
+                    id="new_tags" 
+                    name="new_tags" 
+                    placeholder="Ex: Ação, RPG, Estratégia (Separe por vírgula)">
+                <small class="text-muted">Opcional. Você pode criar novas tags digitando aqui.</small>
+            </div>
+            <div class="form-group">
                 <label for="description">Descrição:</label>
                 <textarea name="description" id="description" class="form-control" placeholder="Digite a descrição do jogo"></textarea>
             </div>

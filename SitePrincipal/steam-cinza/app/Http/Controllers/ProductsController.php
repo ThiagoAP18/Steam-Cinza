@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Game;
 use App\Models\License;
 use App\Models\User;
+use App\Models\Tag;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -33,8 +34,7 @@ class ProductsController extends Controller
     }
 
     public function show($id){
-        $game = Game::findOrFail($id);
-        
+        $game = Game::with('tags')->findOrFail($id);
         $hasGame = false;
 
         if(Auth::check()){
@@ -66,9 +66,10 @@ class ProductsController extends Controller
         $request->validate([
             'name_game' => 'required|string',
             'dt_launch' => 'required|date',
-            'initial_quantity' => 'required|integer|min:1', // Garante que é número e pelo menos 1
+            'initial_quantity' => 'required|integer|min:1',
             'description' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Valida se é imagem mesmo
+            'new_tags' => 'nullable|string',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $game = new Game;
@@ -94,6 +95,22 @@ class ProductsController extends Controller
         }
 
         $game->save();
+
+        if($request->new_tags) {
+            $tagNames = explode(',', $request->new_tags);
+            $tagIds = [];
+
+            foreach($tagNames as $tagName) {
+                $formattedName = ucfirst(trim($tagName));
+
+                if(!empty($formattedName)){
+                    $tag = Tag::firstOrCreate(['name' => $formattedName]);
+                    $tagIds[] = $tag->id;
+                }
+            }
+            
+            $game->tags()->sync($tagIds);
+        }
 
         $licensesData = [];
         $quantity = (int)$request->initial_quantity;
@@ -164,7 +181,9 @@ class ProductsController extends Controller
             return redirect('/')->with('msg', "Apenas publicadoras podem acessar essa página")->with('type', 'danger');;
         }
 
-        return view('games.create', ['user' => $user]);
+        $tags = Tag::all();
+
+        return view('games.create', ['user' => $user], ['tags' => $tags]);
     }
 
     public function buy($id){
@@ -310,7 +329,9 @@ class ProductsController extends Controller
             return redirect('/')->with('msg', 'Você não é o dono desse jogo!')->with('type', 'danger');
         }
 
-        return view('games.edit', ['game' => $game]);
+        $tags = Tag::all();
+
+        return view('games.edit', ['game' => $game], ['tags' => $tags]);
     }
 
     public function update(Request $request){
@@ -378,6 +399,21 @@ class ProductsController extends Controller
         
         $game->actual_quantity = $request->new_quantity;
 
+        $tagIds = [];
+    
+        if($request->new_tags) {
+            $tagNames = explode(',', $request->new_tags);
+            
+            foreach($tagNames as $tagName) {
+                $formattedName = ucfirst(trim($tagName));
+                if(!empty($formattedName)){
+                    $tag = Tag::firstOrCreate(['name' => $formattedName]);
+                    $tagIds[] = $tag->id;
+                }
+            }
+        }
+
+        $game->tags()->sync($tagIds);
         $game->save();
 
         return redirect('/dashboard')->with('msg', 'Jogo editado com sucesso!')->with('type', 'success');

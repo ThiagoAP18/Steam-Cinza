@@ -14,6 +14,14 @@
         <!-- Coluna dos Detalhes -->
         <div class="col-md-7" id="game-details">
             <h1>{{ $game->name_game }}</h1>
+
+            @if($game->tags->count() > 0)
+                <div class="tags-display">
+                    @foreach($game->tags as $tag)
+                        <span class="game-tag">{{ $tag->name }}</span>
+                    @endforeach
+                </div>
+            @endif
             
             <p class="game-publisher">
                 Publicado por: <strong>{{ $publisher }}</strong> 
