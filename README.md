@@ -84,4 +84,5 @@ Apresentação T3:
 Apresentação T4:
 - Adicionar Regra de Negócio que aumenta a participação de lucro de um aluguel de uma licença conforme o número de dias (Concluída)
 - Resolvendo Bug de usuário poder comprar ou alugar mais de um jogo se estiver anunciando um ou em aluguel para outro usuário (Concluída)
-- Montar tabela e sistema de tags
+- Montar tabela e sistema de tags (Concluída)
+- Link do relatório final: https://docs.google.com/document/d/1-PS9xylnxc7OispA6ETx1jf717-eNyYc5fOL4cFc9aI/edit?usp=sharing
