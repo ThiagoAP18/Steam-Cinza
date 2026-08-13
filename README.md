@@ -32,7 +32,6 @@ Este projeto foi desenvolvido com foco em arquitetura de Back-End, segurança de
 1. Clone o Repositório:
    
 ```bash
-bash
 git clone https://github.com/ThiagoAP18/Steam-Cinza.git
 cd steam-cinza
 ```
