@@ -16,19 +16,19 @@ Este projeto foi desenvolvido com foco em arquitetura de Back-End, segurança de
 - Mapeamento de Requisitos.
 - QA e Testes para resolução de problemas técnicos.
 
-## Slack Tecnológica:
+## Slack Tecnológica
 - Back-End: PHP
 - Framework: Laravel
 - Banco de Dados: MySQL
 - Gerenciamento de Dependências: Composer/NPM
 
-## Manual de Instalação:
-### **Recursos/Componentes Necessários**:
+## Manual de Instalação
+### **Recursos/Componentes Necessários**
   - PHP e Composer
   - Servidor Web (Apache/Nginx) e MySQL (exemplo: XAMPP).
   - Node.js (apenas para build de front-end e pacote de autenticação)
 
-### **Guia de Instalação**:
+### **Guia de Instalação**
 1. Clone o Repositório:
    
 ```bash
