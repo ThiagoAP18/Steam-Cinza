@@ -31,36 +31,38 @@ Este projeto foi desenvolvido com foco em arquitetura de Back-End, segurança de
 ### **Guia de Instalação**:
 1. Clone o Repositório:
    
-'''bash
+```bash
+bash
 git clone https://github.com/ThiagoAP18/Steam-Cinza.git
 cd steam-cinza
-'''
+```
+
    
 3. Instale as dependências do Back-End e Front-End:
 
-'''bash
+```bash
 composer install
 npm install
-'''
+```
    
 4. Configure as variáveis de ambiente:
 
-'''bash
+```bash
 cp .env.example .env
 php artisan key:generate
-'''
+```
 
 5. Configure seu banco de dados no arquivo .env e rode as migrations para construir as tabelas:
 
-'''bash
+```bash
 php artisan migrate
-'''
+```
 
 6. Inicie o servidor local e o build de assets:
 
-'''bash
+```bash
 php artisan serve
 npm run dev
-'''
+```
 
 A aplicação estará rodando em http://127.0.0.1:8000.
